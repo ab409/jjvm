@@ -3,6 +3,7 @@ package me.ygy.jjvm.classpath.impl;
 import me.ygy.jjvm.classpath.*;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,11 +27,13 @@ public class CompositeEntry implements Entry {
         }
     }
 
-    public ClassData readClass(String className) throws IllegalArgumentException {
-        return null;
-    }
-
-    public static CompositeEntry newCompositeEntry(String path) {
+    public ClassData readClass(String className) throws IllegalArgumentException, IOException {
+        for (Entry entry : this.entries) {
+            ClassData classData = entry.readClass(className);
+            if (classData != null) {
+                return classData;
+            }
+        }
         return null;
     }
 

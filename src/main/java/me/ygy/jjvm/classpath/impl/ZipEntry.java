@@ -28,7 +28,7 @@ public class ZipEntry implements Entry {
     }
 
     public ClassData readClass(String className) throws IllegalArgumentException, IOException {
-        ZipFile zipFile = new ZipFile(Paths.get(absPath, className).toString());
+        ZipFile zipFile = new ZipFile(absPath);
         Enumeration<? extends java.util.zip.ZipEntry> entries = zipFile.entries();
         while (entries.hasMoreElements()) {
             java.util.zip.ZipEntry zipEntry = entries.nextElement();

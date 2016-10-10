@@ -20,7 +20,7 @@ public interface Entry {
 
     static Entry newEntry(String path) {
         if (path.contains(File.pathSeparator)) {
-            return CompositeEntry.newCompositeEntry(path);
+            return new CompositeEntry(path);
         }
         if (path.endsWith("*")) {
             return WildcardEntry.newWildEntry(path);
