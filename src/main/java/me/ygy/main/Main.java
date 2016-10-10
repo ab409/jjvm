@@ -11,13 +11,10 @@ import org.apache.commons.cli.ParseException;
 public class Main {
 
     public static void main(String[] args) {
-        JavaCmd cmd = null;
+        JavaCmd cmd;
         try {
             cmd = JavaCmd.newCmd(args);
-        } catch (ParseException e) {
-            printUsage();
-            return;
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             printUsage();
             return;
         }
