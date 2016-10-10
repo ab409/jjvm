@@ -13,6 +13,7 @@ public class JavaCmd {
     private boolean helpFlag;
     private boolean versionFlag;
     private String cpOption;
+    private String xJreOption;
     private String clazz;
     private List<String> args;
 
@@ -35,6 +36,9 @@ public class JavaCmd {
 
         cpOpt = new Option("cp", true, "classpath");
         options.addOption(cpOpt);
+
+        Option jreOpt = new Option("Xjre", true, "path to jre");
+        options.addOption(jreOpt);
 
         HelpFormatter hf = new HelpFormatter();
         hf.setWidth(110);
@@ -106,5 +110,13 @@ public class JavaCmd {
 
     public void setArgs(List<String> args) {
         this.args = args;
+    }
+
+    public String getxJreOption() {
+        return xJreOption;
+    }
+
+    public void setxJreOption(String xJreOption) {
+        this.xJreOption = xJreOption;
     }
 }
