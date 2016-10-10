@@ -17,6 +17,9 @@ public class JavaCmd {
     private List<String> args;
 
     public static JavaCmd newCmd(String[] args) throws ParseException {
+        if (args.length < 1) {
+            throw new IllegalArgumentException();
+        }
         Options options = new Options();
         Option helpOpt = new Option("h", false, "print help message");
         options.addOption(helpOpt);
@@ -40,7 +43,6 @@ public class JavaCmd {
         PosixParser parser = new PosixParser();
         try {
             commandLine = parser.parse(options, args);
-
         } catch (ParseException e) {
             hf.printHelp("java", options, true);
             throw e;
@@ -57,8 +59,10 @@ public class JavaCmd {
         }
 
         List argList = commandLine.getArgList();
-        cmd.setClazz(argList.get(0).toString());
-        argList.remove(0);
+        if (argList.size() > 0) {
+            cmd.setClazz(argList.get(0).toString());
+            argList.remove(0);
+        }
         cmd.setArgs(argList);
 
         return cmd;

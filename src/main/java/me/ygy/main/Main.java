@@ -17,6 +17,9 @@ public class Main {
         } catch (ParseException e) {
             printUsage();
             return;
+        } catch (IllegalArgumentException e) {
+            printUsage();
+            return;
         }
         if (cmd.isHelpFlag()) {
             printUsage();
@@ -28,7 +31,11 @@ public class Main {
     }
 
     public static void startJvm(JavaCmd cmd) {
-        System.out.println(cmd.getClazz());
+        System.out.println("help flag: "+cmd.isHelpFlag());
+        System.out.println("version flag: "+cmd.isVersionFlag());
+        System.out.println("classpath: "+cmd.getCpOption());
+        System.out.println("args: "+cmd.getArgs());
+        System.out.println("start main class: "+cmd.getClazz());
     }
 
     public static void printUsage() {
