@@ -1,14 +1,13 @@
 package me.ygy.jjvm.classpath.impl;
 
-import com.google.common.base.Strings;
 import me.ygy.jjvm.classpath.ClassData;
 import me.ygy.jjvm.classpath.Entry;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 /**
  * Author: guangyuanyu
