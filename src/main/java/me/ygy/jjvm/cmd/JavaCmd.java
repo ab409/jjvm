@@ -1,4 +1,4 @@
-package me.ygy.cmd;
+package me.ygy.jjvm.cmd;
 
 import org.apache.commons.cli.*;
 

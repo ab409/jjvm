@@ -1,4 +1,4 @@
-package me.ygy;
+package me.ygy.jjvm;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

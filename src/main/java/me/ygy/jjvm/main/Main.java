@@ -1,6 +1,6 @@
-package me.ygy.main;
+package me.ygy.jjvm.main;
 
-import me.ygy.cmd.JavaCmd;
+import me.ygy.jjvm.cmd.JavaCmd;
 
 /**
  * Author: guangyuanyu
