@@ -1,5 +1,7 @@
 package me.ygy.jjvm.classpath;
 
+import me.ygy.jjvm.classpath.entry.Entry;
+
 /**
  * Author: guangyuanyu
  * Email: guangyuanyu@sohu-inc.com

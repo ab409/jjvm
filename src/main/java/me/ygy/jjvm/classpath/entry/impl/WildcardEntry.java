@@ -1,7 +1,7 @@
-package me.ygy.jjvm.classpath.impl;
+package me.ygy.jjvm.classpath.entry.impl;
 
 import me.ygy.jjvm.classpath.ClassData;
-import me.ygy.jjvm.classpath.Entry;
+import me.ygy.jjvm.classpath.entry.Entry;
 
 import java.io.File;
 import java.io.IOException;

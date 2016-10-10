@@ -1,13 +1,12 @@
-package me.ygy.jjvm.classpath;
+package me.ygy.jjvm.classpath.entry;
 
-import com.google.common.base.Strings;
-import me.ygy.jjvm.classpath.impl.CompositeEntry;
-import me.ygy.jjvm.classpath.impl.DirEntry;
-import me.ygy.jjvm.classpath.impl.WildcardEntry;
-import me.ygy.jjvm.classpath.impl.ZipEntry;
+import me.ygy.jjvm.classpath.ClassData;
+import me.ygy.jjvm.classpath.entry.impl.CompositeEntry;
+import me.ygy.jjvm.classpath.entry.impl.DirEntry;
+import me.ygy.jjvm.classpath.entry.impl.WildcardEntry;
+import me.ygy.jjvm.classpath.entry.impl.ZipEntry;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -23,7 +22,7 @@ public interface Entry {
             return new CompositeEntry(path);
         }
         if (path.endsWith("*")) {
-            return WildcardEntry.newWildEntry(path);
+            return new WildcardEntry(path);
         }
         if (path.endsWith(".jar") || path.endsWith(".JAR")
                 || path.endsWith(".zip") || path.endsWith(".ZIP")) {

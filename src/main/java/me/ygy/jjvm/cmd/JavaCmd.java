@@ -62,6 +62,10 @@ public class JavaCmd {
             cmd.setCpOption(commandLine.getOptionValue("classpath"));
         }
 
+        if (commandLine.hasOption("Xjre")) {
+            cmd.setxJreOption(commandLine.getOptionValue("Xjre"));
+        }
+
         List argList = commandLine.getArgList();
         if (argList.size() > 0) {
             cmd.setClazz(argList.get(0).toString());

@@ -1,10 +1,9 @@
-package me.ygy.jjvm.classpath.impl;
+package me.ygy.jjvm.classpath.entry.impl;
 
 import me.ygy.jjvm.classpath.ClassData;
-import me.ygy.jjvm.classpath.Entry;
+import me.ygy.jjvm.classpath.entry.Entry;
 
 import java.io.*;
-import java.nio.file.Paths;
 import java.util.Enumeration;
 import java.util.zip.ZipFile;
 
