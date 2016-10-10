@@ -27,7 +27,7 @@ public interface Entry {
         }
         if (path.endsWith(".jar") || path.endsWith(".JAR")
                 || path.endsWith(".zip") || path.endsWith(".ZIP")) {
-            return ZipEntry.newZipEntry(path);
+            return new ZipEntry(path);
         }
         return new DirEntry(path);
     }

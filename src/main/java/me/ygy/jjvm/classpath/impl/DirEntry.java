@@ -37,6 +37,8 @@ public class DirEntry implements Entry {
 
     public ClassData readClass(String className) throws IllegalArgumentException, IOException {
         File classFile = new File(this.absDir, className);
+        if (!classFile.exists() || classFile.isDirectory())
+            return null;
         FileInputStream fileInputStream = new FileInputStream(classFile);
         FileChannel channel = fileInputStream.getChannel();
         ByteBuffer buffer = ByteBuffer.allocate((int)channel.size());
