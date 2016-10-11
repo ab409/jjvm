@@ -64,9 +64,9 @@ public class Classpath {
 
     private void parseBootAndExtClasspath(String jreOption) {
         String jreDir = getJreDir(jreOption);
-        String jreLibPath = Paths.get(jreDir, "lib", "*").toString();
+        String jreLibPath = Paths.get(jreDir, "lib").toString() + "\\*";
         this.bootClasspath = new WildcardEntry(jreLibPath);
-        String jreExtPath = Paths.get(jreDir, "lib", "ext", "*").toString();
+        String jreExtPath = Paths.get(jreDir, "lib", "ext").toString() + "\\*";
         this.extClasspath = new WildcardEntry(jreExtPath);
     }
 

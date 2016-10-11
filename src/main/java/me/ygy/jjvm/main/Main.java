@@ -1,6 +1,11 @@
 package me.ygy.jjvm.main;
 
+import com.google.common.base.Strings;
+import me.ygy.jjvm.classpath.ClassData;
+import me.ygy.jjvm.classpath.Classpath;
 import me.ygy.jjvm.cmd.JavaCmd;
+
+import java.io.IOException;
 
 /**
  * Author: guangyuanyu
@@ -9,7 +14,7 @@ import me.ygy.jjvm.cmd.JavaCmd;
  */
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         JavaCmd cmd;
         try {
             cmd = JavaCmd.newCmd(args);
@@ -26,12 +31,17 @@ public class Main {
         }
     }
 
-    public static void startJvm(JavaCmd cmd) {
+    public static void startJvm(JavaCmd cmd) throws IOException {
         System.out.println("help flag: "+cmd.isHelpFlag());
         System.out.println("version flag: "+cmd.isVersionFlag());
         System.out.println("classpath: "+cmd.getCpOption());
         System.out.println("args: "+cmd.getArgs());
         System.out.println("start main class: "+cmd.getClazz());
+
+        Classpath classpath = Classpath.newClasspath(cmd.getxJreOption(), cmd.getCpOption());
+        String className = cmd.getClazz().replaceAll("\\.", "/");
+        ClassData classData = classpath.readClass(className);
+        System.out.println(String.format("class data: %s\n", new String(classData.getData())));
     }
 
     public static void printUsage() {

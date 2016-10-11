@@ -5,6 +5,9 @@ import me.ygy.jjvm.classpath.entry.Entry;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,17 +22,18 @@ public class WildcardEntry implements Entry {
 
     public WildcardEntry(String path) {
         String baseDir = path.substring(0, path.length() - 1);
-        File file = new File(path);
+        File file = new File(baseDir);
         if (!file.exists() || !file.isDirectory())
             throw new IllegalArgumentException("wildcard classpath is not valid, path: "+path);
         File[] files = file.listFiles();
+        entries = new ArrayList<>();
         for (int i = 0; i < files.length; i++) {
             File f = files[i];
             if (f.isDirectory()) continue;
             String name = f.getName();
             if (name.endsWith(".jar") || name.endsWith(".JAR") ||
                     name.endsWith(".zip") || name.endsWith(".ZIP")) {
-                entries.add(i, new ZipEntry(name));
+                entries.add(new ZipEntry(Paths.get(baseDir, name).toString()));
             }
         }
     }
