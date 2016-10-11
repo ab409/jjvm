@@ -1,6 +1,6 @@
 package me.ygy.jjvm.classpath.entry.impl;
 
-import me.ygy.jjvm.classpath.*;
+import me.ygy.jjvm.classpath.ClassData;
 import me.ygy.jjvm.classpath.entry.Entry;
 
 import java.io.File;

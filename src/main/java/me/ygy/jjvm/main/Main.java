@@ -1,6 +1,5 @@
 package me.ygy.jjvm.main;
 
-import com.google.common.base.Strings;
 import me.ygy.jjvm.classpath.ClassData;
 import me.ygy.jjvm.classpath.Classpath;
 import me.ygy.jjvm.cmd.JavaCmd;
@@ -34,6 +33,7 @@ public class Main {
     public static void startJvm(JavaCmd cmd) throws IOException {
         System.out.println("help flag: "+cmd.isHelpFlag());
         System.out.println("version flag: "+cmd.isVersionFlag());
+        System.out.println("jre: "+cmd.getxJreOption());
         System.out.println("classpath: "+cmd.getCpOption());
         System.out.println("args: "+cmd.getArgs());
         System.out.println("start main class: "+cmd.getClazz());
