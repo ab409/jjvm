@@ -37,18 +37,22 @@ public class MemberInfo {
         int memberCount = reader.readUint16();
         List<MemberInfo> memberInfos = new ArrayList<>(memberCount);
         for (int i = 0; i < memberCount; i++) {
-            memberInfos.add(readMember(reader, pool));
+            MemberInfo memberInfo = new MemberInfo(pool);
+            memberInfo.read(reader);
+            memberInfos.add(memberInfo);
         }
         return memberInfos;
     }
 
-    public static MemberInfo readMember(ClassReader reader, ConstantPool pool) {
-        MemberInfo memberInfo = new MemberInfo();
-        memberInfo.constantPool = pool;
-        memberInfo.accessFlags = reader.readUint16();
-        memberInfo.nameIndex = reader.readUint16();
-        memberInfo.descriptorIndex = reader.readUint16();
-        memberInfo.attributes = AttributeInfo.readAttributes(reader, pool);
-        return memberInfo;
+
+    public MemberInfo(ConstantPool pool) {
+        this.constantPool = pool;
+    }
+
+    public void read(ClassReader reader) {
+        this.accessFlags = reader.readUint16();
+        this.nameIndex = reader.readUint16();
+        this.descriptorIndex = reader.readUint16();
+        this.attributes = AttributeInfo.readAttributes(reader, this.constantPool);
     }
 }
