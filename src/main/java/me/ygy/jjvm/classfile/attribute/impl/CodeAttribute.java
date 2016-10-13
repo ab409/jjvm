@@ -35,6 +35,11 @@ public class CodeAttribute implements AttributeInfo {
     private List<ExceptionTableEntry> exceptionTable;
     private List<AttributeInfo> attributes;
 
+    public CodeAttribute(ConstantPool pool) {
+        this.pool = pool;
+    }
+
+
     @Override
     public void readInfo(ClassReader reader) {
         this.maxStack = reader.readUint16();

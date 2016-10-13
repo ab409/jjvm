@@ -44,7 +44,7 @@ public interface AttributeInfo {
     static AttributeInfo newAttributeInfo(String attrName, int attrLen, ConstantPool pool) {
         switch (attrName) {
             case "Code":
-                return new CodeAttribute();
+                return new CodeAttribute(pool);
             case "ConstantValue":
                 return new ConstantValueAttribute();
             case "Deprecated":
