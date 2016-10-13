@@ -14,8 +14,17 @@ public class UnparseedAttribute implements AttributeInfo {
     private int length;
     private byte[] info;
 
+    public UnparseedAttribute(String name, int length) {
+        this.name = name;
+        this.length = length;
+    }
+
     @Override
     public void readInfo(ClassReader reader) {
         this.info = reader.readBytes(this.length);
+    }
+
+    public byte[] getInfo() {
+        return info;
     }
 }

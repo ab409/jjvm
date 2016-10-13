@@ -30,6 +30,9 @@ public interface AttributeInfo {
         int attrLen = reader.readUint32();
         String attrName = pool.getUtf8(attrNameIndex);
         AttributeInfo attributeInfo = newAttributeInfo(attrName, attrLen, pool);
+        if (attributeInfo == null) {
+            attributeInfo = new UnparseedAttribute(attrName, attrLen);
+        }
         attributeInfo.readInfo(reader);
         return attributeInfo;
     }
@@ -60,7 +63,7 @@ public interface AttributeInfo {
             case "Synthetic":
                 return new SyntheticAttribute();
             default:
-                return new UnparseedAttribute();
+                return null;
         }
     }
 }
