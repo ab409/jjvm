@@ -22,12 +22,14 @@ public class ClassReader {
         return this.data[index++];
     }
 
-    public short readUint16() {
-        ByteBuffer buffer = ByteBuffer.allocate(2);
+    public int readUint16() {
+        ByteBuffer buffer = ByteBuffer.allocate(4);
         buffer.order(ByteOrder.BIG_ENDIAN);
+        buffer.put((byte)0);
+        buffer.put((byte)0);
         buffer.put(data[index++]);
         buffer.put(data[index++]);
-        return buffer.getShort(0);
+        return buffer.getInt(0);
     }
 
     public int readUint32() {
@@ -54,9 +56,9 @@ public class ClassReader {
         return buffer.getLong(0);
     }
 
-    public short[] readUint16s() {
-        short n = this.readUint16();
-        short[] ret = new short[n];
+    public int[] readUint16s() {
+        int n = this.readUint16();
+        int[] ret = new int[n];
         for (int i = 0; i < n; i++) {
             ret[i] = readUint16();
         }

@@ -1,6 +1,9 @@
 package me.ygy.jjvm.classfile;
 
+import me.ygy.jjvm.classfile.attribute.AttributeInfo;
 import me.ygy.jjvm.classfile.constant.ConstantPool;
+
+import java.util.List;
 
 /**
  * Author: guangyuanyu
@@ -10,42 +13,60 @@ import me.ygy.jjvm.classfile.constant.ConstantPool;
 public class ClassFile {
 
     private int magic;
-    private short minorVersion;
-    private short majorVersion;
+    private int minorVersion;
+    private int majorVersion;
     //constant pool
     private ConstantPool constantPool;
-    private short accessFlags;
-    private short thisClass;
-    private short superClass;
-    private short[] interfaces;
-    //todo memberInfo attibuteInfo
+    private int accessFlags;
+    private int thisClass;
+    private int superClass;
+    private int[] interfaces;
+    //memberInfo attibuteInfo
+    private List<MemberInfo> fields;
+    private List<MemberInfo> methods;
+    private List<AttributeInfo> attributes;
 
+    public ConstantPool getConstantPool() {
+        return constantPool;
+    }
+
+    public List<MemberInfo> getFields() {
+        return fields;
+    }
+
+    public List<MemberInfo> getMethods() {
+        return methods;
+    }
+
+    public List<AttributeInfo> getAttributes() {
+        return attributes;
+    }
 
     public int getMagic() {
         return magic;
     }
 
-    public short getMinorVersion() {
+    public int getMinorVersion() {
         return minorVersion;
     }
 
-    public short getMajorVersion() {
+    public int getMajorVersion() {
         return majorVersion;
     }
 
-    public short getAccessFlags() {
+    public int getAccessFlags() {
         return accessFlags;
     }
 
-    public short getThisClass() {
+    public int getThisClass() {
         return thisClass;
     }
 
-    public short getSuperClass() {
+    public int getSuperClass() {
         return superClass;
     }
 
-    public short[] getInterfaces() {
+    public int[] getInterfaces() {
         return interfaces;
     }
 
@@ -57,14 +78,17 @@ public class ClassFile {
     public void read(ClassReader reader) {
         this.readAndCheckMagic(reader);
         this.readAndCheckVersion(reader);
-        //todo constant pool
+        //constant pool
+        this.constantPool = new ConstantPool(this, reader);
 
         this.accessFlags = reader.readUint16();
         this.thisClass = reader.readUint16();
         this.superClass = reader.readUint16();
         this.interfaces = reader.readUint16s();
-        //todo fields, methods, attributes
-
+        //fields, methods, attributes
+        this.fields = MemberInfo.readMembers(reader, this.constantPool);
+        this.methods = MemberInfo.readMembers(reader, this.constantPool);
+        this.attributes = AttributeInfo.readAttributes(reader, this.constantPool);
     }
 
     public void readAndCheckMagic(ClassReader reader) {
@@ -96,15 +120,24 @@ public class ClassFile {
         throw new IllegalArgumentException("class file version is not supported by this jjvm");
     }
 
-    public String className() {
 
+
+    public String className() {
+        return this.constantPool.getClassName(this.getThisClass());
     }
 
     public String superClassName() {
-
+        if (this.getSuperClass() > 0)
+            return this.constantPool.getClassName(this.superClass);
+        return "";
     }
 
     public String[] interfaceNames() {
-
+        String[] names = new String[this.interfaces.length];
+        for (int i = 0; i <this.interfaces.length; i++) {
+            int index = this.interfaces[i];
+            names[i] = this.constantPool.getClassName(index);
+        }
+        return names;
     }
 }

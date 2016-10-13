@@ -5,6 +5,7 @@ import me.ygy.jjvm.classfile.constant.ConstantInfo;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Author: guangyuanyu
@@ -21,14 +22,8 @@ public class ConstantUtf8Info implements ConstantInfo {
 
     @Override
     public void readInfo(ClassReader reader) {
-        short length = reader.readUint16();
+        int length = reader.readUint16();
         byte[] bytes = reader.readBytes((int) length);
-        try {
-            ByteArrayInputStream in = new ByteArrayInputStream(bytes);
-            this.str = in.toString();
-            in.close();
-        } catch (IOException e) {
-            throw new IllegalArgumentException("constant utf8 init failed, class file is not valid");
-        }
+        this.str = new String(bytes, StandardCharsets.UTF_8);
     }
 }

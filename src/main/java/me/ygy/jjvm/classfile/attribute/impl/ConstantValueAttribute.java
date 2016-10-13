@@ -10,9 +10,9 @@ import me.ygy.jjvm.classfile.attribute.AttributeInfo;
  */
 public class ConstantValueAttribute implements AttributeInfo {
 
-    private short constantValueIndex;
+    private int constantValueIndex;
 
-    public short getConstantValueIndex() {
+    public int getConstantValueIndex() {
         return constantValueIndex;
     }
 

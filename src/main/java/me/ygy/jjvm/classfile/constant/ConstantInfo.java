@@ -30,7 +30,9 @@ public interface ConstantInfo {
 
     static ConstantInfo readConstantInfo(ClassReader reader, ConstantPool pool) {
         byte tag = reader.readUint8();
-        return newConstantInfo(tag, pool);
+        ConstantInfo info = newConstantInfo(tag, pool);
+        info.readInfo(reader);
+        return info;
     }
 
     static ConstantInfo newConstantInfo(byte tag, ConstantPool pool) {

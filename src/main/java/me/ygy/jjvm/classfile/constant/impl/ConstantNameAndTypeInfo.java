@@ -10,14 +10,14 @@ import me.ygy.jjvm.classfile.constant.ConstantInfo;
  */
 public class ConstantNameAndTypeInfo implements ConstantInfo {
 
-    private short nameIndex;
-    private short descriptorIndex;
+    private int nameIndex;
+    private int descriptorIndex;
 
-    public short getNameIndex() {
+    public int getNameIndex() {
         return nameIndex;
     }
 
-    public short getDescriptorIndex() {
+    public int getDescriptorIndex() {
         return descriptorIndex;
     }
 

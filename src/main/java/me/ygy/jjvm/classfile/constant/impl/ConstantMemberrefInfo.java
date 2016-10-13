@@ -13,18 +13,18 @@ import me.ygy.jjvm.classfile.constant.NameAndType;
 public class ConstantMemberrefInfo implements ConstantInfo {
 
     private ConstantPool pool;
-    private short classIndex;
-    private short nameAndTypeIndex;
+    private int classIndex;
+    private int nameAndTypeIndex;
 
     public ConstantMemberrefInfo(ConstantPool pool) {
         this.pool = pool;
     }
 
-    public short getClassIndex() {
+    public int getClassIndex() {
         return classIndex;
     }
 
-    public short getNameAndTypeIndex() {
+    public int getNameAndTypeIndex() {
         return nameAndTypeIndex;
     }
 

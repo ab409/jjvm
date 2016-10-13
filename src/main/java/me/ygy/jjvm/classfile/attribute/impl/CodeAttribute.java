@@ -15,12 +15,12 @@ import java.util.List;
 public class CodeAttribute implements AttributeInfo {
 
     private class ExceptionTableEntry {
-        short startPc;
-        short endPc;
-        short handlerPc;
-        short catchType;
+        int startPc;
+        int endPc;
+        int handlerPc;
+        int catchType;
 
-        ExceptionTableEntry(short startPc, short endPc, short handlerPc, short catchType) {
+        ExceptionTableEntry(int startPc, int endPc, int handlerPc, int catchType) {
             this.startPc = startPc;
             this.endPc = endPc;
             this.handlerPc = handlerPc;
@@ -29,8 +29,8 @@ public class CodeAttribute implements AttributeInfo {
     }
 
     private ConstantPool pool;
-    private short maxStack;
-    private short maxLocals;
+    private int maxStack;
+    private int maxLocals;
     private byte[] code;
     private List<ExceptionTableEntry> exceptionTable;
     private List<AttributeInfo> attributes;
@@ -46,7 +46,7 @@ public class CodeAttribute implements AttributeInfo {
     }
 
     private List<ExceptionTableEntry> readExceptiontable(ClassReader reader) {
-        short exceptionTableLength = reader.readUint16();
+        int exceptionTableLength = reader.readUint16();
         ArrayList<ExceptionTableEntry> exceptions = new ArrayList<>(exceptionTableLength);
         for (int i = 0; i < exceptionTableLength; i++) {
             exceptions.add(new ExceptionTableEntry(reader.readUint16(), reader.readUint16(), reader.readUint16(), reader.readUint16()));

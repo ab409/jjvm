@@ -12,9 +12,9 @@ import me.ygy.jjvm.classfile.constant.ConstantPool;
 public class ConstantStringInfo implements ConstantInfo {
 
     private ConstantPool pool;
-    private short stringIndex;
+    private int stringIndex;
 
-    public short getStringIndex() {
+    public int getStringIndex() {
         return stringIndex;
     }
 

@@ -12,7 +12,7 @@ import me.ygy.jjvm.classfile.constant.ConstantPool;
 public class SourceFileAttribute implements AttributeInfo {
 
     private ConstantPool pool;
-    private short sourceFileIndex;
+    private int sourceFileIndex;
 
     public SourceFileAttribute(ConstantPool pool) {
         this.pool = pool;

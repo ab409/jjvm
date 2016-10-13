@@ -12,9 +12,9 @@ import me.ygy.jjvm.classfile.constant.ConstantPool;
 public class ConstantClassInfo implements ConstantInfo {
 
     private ConstantPool pool;
-    private short nameIndex;
+    private int nameIndex;
 
-    public short getNameIndex() {
+    public int getNameIndex() {
         return nameIndex;
     }
 
