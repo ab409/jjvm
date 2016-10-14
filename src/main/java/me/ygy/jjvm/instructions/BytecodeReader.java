@@ -1,5 +1,7 @@
 package me.ygy.jjvm.instructions;
 
+import java.util.List;
+
 /**
  * Created by guangyuanyu on 2016/10/14.
  */
@@ -46,5 +48,19 @@ public class BytecodeReader {
         int b3 = this.readUint8();
         int b4 = this.readUint8();
         return (b1 << 24) + (b2 << 16) + (b3 << 8) + b4;
+    }
+
+    public void skipPadding() {
+        while (this.pc % 4 != 0) {
+            this.readUint8();
+        }
+    }
+
+    public int[] readInt32s(int n) {
+        int[] ints = new int[n];
+        for (int i = 0; i < n; i++) {
+            ints[i] = this.readInt32();
+        }
+        return ints;
     }
 }
