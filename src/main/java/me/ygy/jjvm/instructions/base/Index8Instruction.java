@@ -9,7 +9,7 @@ import me.ygy.jjvm.rtda.Frame;
  */
 public class Index8Instruction implements Instruction {
 
-    protected int index;
+    public int index;
 
     @Override
     public void fetchOperands(BytecodeReader reader) {

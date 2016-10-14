@@ -1,15 +1,16 @@
-package me.ygy.jjvm.instructions.loads;
+package me.ygy.jjvm.instructions.loads.f;
 
+import me.ygy.jjvm.instructions.base.Index8Instruction;
 import me.ygy.jjvm.instructions.base.NoOperandsInstruction;
 import me.ygy.jjvm.rtda.Frame;
 
 /**
  * Created by guangyuanyu on 2016/10/14.
  */
-public class ILoad2 extends NoOperandsInstruction {
+public class FLoad0 extends NoOperandsInstruction {
 
     @Override
     public void execute(Frame frame) {
-        ILoad._iload(frame, 2);
+        FLoad._fload(frame, 0);
     }
 }

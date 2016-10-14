@@ -1,4 +1,4 @@
-package me.ygy.jjvm.instructions.loads;
+package me.ygy.jjvm.instructions.loads.i;
 
 import me.ygy.jjvm.instructions.base.Index8Instruction;
 import me.ygy.jjvm.rtda.Frame;
