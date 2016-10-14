@@ -73,4 +73,14 @@ public class OperandStack {
         this.slots[this.size].ref = null;
         return ref;
     }
+
+    public void pushSlot(LocalVars.Slot slot) {
+        this.slots[this.size] = slot;
+        this.size++;
+    }
+
+    public LocalVars.Slot popSlot() {
+        this.size--;
+        return this.slots[this.size];
+    }
 }
