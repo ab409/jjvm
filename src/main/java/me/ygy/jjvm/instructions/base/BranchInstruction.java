@@ -9,7 +9,7 @@ import me.ygy.jjvm.rtda.Frame;
  */
 public class BranchInstruction implements Instruction {
 
-    private int offset;
+    protected int offset;
 
     @Override
     public void fetchOperands(BytecodeReader reader) {
@@ -19,5 +19,9 @@ public class BranchInstruction implements Instruction {
     @Override
     public void execute(Frame frame) {
 
+    }
+
+    public static void branch(Frame frame, int offset) {
+        //todo branch
     }
 }
