@@ -10,8 +10,8 @@ import me.ygy.jjvm.rtda.LocalVars;
  */
 public class IInc implements Instruction {
 
-    private int index;
-    private int constant;
+    public int index;
+    public int constant;
 
     @Override
     public void fetchOperands(BytecodeReader reader) {
