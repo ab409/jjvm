@@ -7,7 +7,7 @@ import me.ygy.jjvm.rtda.Frame;
 /**
  * Created by guangyuanyu on 2016/10/14.
  */
-public class Fload3 extends NoOperandsInstruction {
+public class FLoad3 extends NoOperandsInstruction {
 
     @Override
     public void execute(Frame frame) {

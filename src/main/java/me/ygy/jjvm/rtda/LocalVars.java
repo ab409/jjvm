@@ -67,4 +67,16 @@ public class LocalVars {
     public Object getRef(int index) {
         return this.slots[index].ref;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("local vars: \n");
+        Slot[] slots = this.slots;
+        for (int i = 0; i < slots.length; i++) {
+            Slot slot = slots[i];
+            builder.append(i).append(" : num=").append(slot.num).append(" ref=").append(slot.ref).append("\n");
+        }
+        return builder.toString();
+    }
 }

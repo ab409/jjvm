@@ -23,4 +23,16 @@ public class Thread {
     public Frame currentFrame() {
         return this.stack.top();
     }
+
+    public int getPc() {
+        return pc;
+    }
+
+    public Stack getStack() {
+        return stack;
+    }
+
+    public void setPc(int pc) {
+        this.pc = pc;
+    }
 }

@@ -83,4 +83,17 @@ public class OperandStack {
         this.size--;
         return this.slots[this.size];
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("operandStack size: ").append(this.size).append("\n");
+        builder.append("slots: \n");
+        LocalVars.Slot[] slots = this.slots;
+        for (int i = 0; i < slots.length; i++) {
+            LocalVars.Slot slot = slots[i];
+            builder.append(i).append(" : num=").append(slot.num).append(" ref=").append(slot.ref).append("\n");
+        }
+        return builder.toString();
+    }
 }

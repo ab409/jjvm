@@ -22,6 +22,9 @@ public class BranchInstruction implements Instruction {
     }
 
     public static void branch(Frame frame, int offset) {
-        //todo branch
+        //branch
+        int pc = frame.getThread().getPc();
+        int nextPc = pc + offset;
+        frame.setNextPc(nextPc);
     }
 }

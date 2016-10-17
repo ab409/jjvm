@@ -7,10 +7,10 @@ import me.ygy.jjvm.rtda.Frame;
 /**
  * Created by guangyuanyu on 2016/10/14.
  */
-public class Fload1 extends NoOperandsInstruction {
+public class FLoad2 extends NoOperandsInstruction {
 
     @Override
     public void execute(Frame frame) {
-        FLoad._fload(frame, 1);
+        FLoad._fload(frame, 2);
     }
 }

@@ -1,6 +1,7 @@
 package me.ygy.jjvm.classfile;
 
 import me.ygy.jjvm.classfile.attribute.AttributeInfo;
+import me.ygy.jjvm.classfile.attribute.impl.CodeAttribute;
 import me.ygy.jjvm.classfile.constant.ConstantPool;
 
 import java.util.ArrayList;
@@ -54,5 +55,14 @@ public class MemberInfo {
         this.nameIndex = reader.readUint16();
         this.descriptorIndex = reader.readUint16();
         this.attributes = AttributeInfo.readAttributes(reader, this.constantPool);
+    }
+
+    public CodeAttribute getCodeAttribute() {
+        for (AttributeInfo info : this.attributes) {
+            if (info instanceof CodeAttribute) {
+                return (CodeAttribute) info;
+            }
+        }
+        return null;
     }
 }

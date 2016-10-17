@@ -58,4 +58,16 @@ public class CodeAttribute implements AttributeInfo {
         }
         return exceptions;
     }
+
+    public int getMaxStack() {
+        return maxStack;
+    }
+
+    public int getMaxLocals() {
+        return maxLocals;
+    }
+
+    public byte[] getCode() {
+        return code;
+    }
 }
