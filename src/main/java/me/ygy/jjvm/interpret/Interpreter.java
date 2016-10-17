@@ -36,7 +36,7 @@ public class Interpreter {
             int pc = frame.getNextPc();
             thread.setPc(pc);
             reader.reset(bytecode, pc);
-            byte opcode = reader.readUint8();
+            int opcode = reader.readUint8();
             Instruction instruction = Instruction.newInstruction(opcode);
             instruction.fetchOperands(reader);
             frame.setNextPc(reader.getPc());

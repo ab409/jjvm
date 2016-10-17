@@ -66,6 +66,9 @@ import me.ygy.jjvm.instructions.stores.l.*;
 import me.ygy.jjvm.instructions.stores.xa.*;
 import me.ygy.jjvm.rtda.Frame;
 
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+
 /**
  * Created by guangyuanyu on 2016/10/14.
  */

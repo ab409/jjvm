@@ -1,12 +1,15 @@
 package me.ygy.jjvm.main;
 
 import me.ygy.jjvm.classfile.ClassFile;
+import me.ygy.jjvm.classfile.MemberInfo;
 import me.ygy.jjvm.classpath.ClassData;
 import me.ygy.jjvm.classpath.Classpath;
 import me.ygy.jjvm.cmd.JavaCmd;
+import me.ygy.jjvm.interpret.Interpreter;
 import me.ygy.jjvm.rtda.Frame;
 import me.ygy.jjvm.rtda.LocalVars;
 import me.ygy.jjvm.rtda.OperandStack;
+import me.ygy.jjvm.rtda.Thread;
 
 import java.io.IOException;
 
@@ -58,15 +61,35 @@ public class Main {
         printClassInfo(classFile);
 
         soutLine();
-        Frame frame = new Frame(100, 100);
+        Thread thread = new Thread();
+        Frame frame = new Frame(100, 100, thread);
         testLocalVars(frame.getLocalVars());
         testOperandStack(frame.getOperandStack());
+
+        soutLine();
+        MemberInfo main = getMainMethod(classFile);
+        if (main != null) {
+            Interpreter.interpret(main);
+        } else {
+            System.out.println(String.format("main method not fount in class %s\n", className));
+        }
     }
 
     private static ClassFile loadClass(String className, Classpath classpath) throws IOException {
         ClassData classData = classpath.readClass(className);
         ClassFile classFile = new ClassFile(classData.getData());
         return classFile;
+    }
+
+    private static MemberInfo getMainMethod(ClassFile classFile) {
+        if (null == classFile)
+            return null;
+        for (MemberInfo info : classFile.getMethods()) {
+            if ("main".equals(info.name()) && "([Ljava/lang/String;)V".equals(info.descriptor())) {
+                return info;
+            }
+        }
+        return null;
     }
 
     private static void printClassInfo(ClassFile classFile) {
