@@ -7,6 +7,8 @@ import me.ygy.jjvm.instructions.loads.d.DLoad;
 import me.ygy.jjvm.instructions.loads.f.FLoad;
 import me.ygy.jjvm.instructions.loads.i.ILoad;
 import me.ygy.jjvm.instructions.loads.l.LLoad;
+import me.ygy.jjvm.instructions.stores.i.IStore;
+import me.ygy.jjvm.instructions.stores.l.LStore;
 import me.ygy.jjvm.rtda.Frame;
 
 /**
@@ -46,8 +48,14 @@ public class Wide implements Instruction {
                 this.modifiedInstruction = aLoad;
                 break;
             case 0x36:
+                IStore iStore = new IStore();
+                iStore.index = reader.readUint16();
+                this.modifiedInstruction = iStore;
                 break;
             case 0x37:
+                LStore lStore = new LStore();
+                lStore.index = reader.readUint16();
+                this.modifiedInstruction = lStore;
                 break;
             case 0x38:
                 break;
