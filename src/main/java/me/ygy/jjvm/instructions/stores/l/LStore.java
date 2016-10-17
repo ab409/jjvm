@@ -1,4 +1,4 @@
-package me.ygy.jjvm.instructions.stores;
+package me.ygy.jjvm.instructions.stores.l;
 
 import me.ygy.jjvm.instructions.base.Index8Instruction;
 import me.ygy.jjvm.rtda.Frame;
