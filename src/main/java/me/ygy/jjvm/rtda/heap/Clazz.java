@@ -1,6 +1,7 @@
 package me.ygy.jjvm.rtda.heap;
 
 import me.ygy.jjvm.classfile.ClassFile;
+import me.ygy.jjvm.rtda.LocalVars;
 
 import java.util.List;
 
@@ -12,8 +13,10 @@ public class Clazz {
     private String name;
     private String superClassName;
     private String[] interfaceNames;
-    //todo constantpool field method
-//    private ConstantPool constantPool;
+    //
+    private ConstantPool constantPool;
+    private List<Field> fields;
+    private List<Method> methods;
 
     private ClassLoader classLoader;
 
@@ -21,9 +24,56 @@ public class Clazz {
     private List<Clazz> interfaces;
     private int instanceSlotCount;
     private int staticSlotCount;
-    //todo slots
-//    private LocalVars.Slot
+    //
+    private LocalVars staticVars;
 
+    public void setAccesssFlags(int accesssFlags) {
+        this.accesssFlags = accesssFlags;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public ConstantPool getConstantPool() {
+        return constantPool;
+    }
+
+    public void setConstantPool(ConstantPool constantPool) {
+        this.constantPool = constantPool;
+    }
+
+    public List<Field> getFields() {
+        return fields;
+    }
+
+    public void setFields(List<Field> fields) {
+        this.fields = fields;
+    }
+
+    public List<Method> getMethods() {
+        return methods;
+    }
+
+    public void setMethods(List<Method> methods) {
+        this.methods = methods;
+    }
+
+    public void setInstanceSlotCount(int instanceSlotCount) {
+        this.instanceSlotCount = instanceSlotCount;
+    }
+
+    public void setStaticSlotCount(int staticSlotCount) {
+        this.staticSlotCount = staticSlotCount;
+    }
+
+    public LocalVars getStaticVars() {
+        return staticVars;
+    }
+
+    public void setStaticVars(LocalVars staticVars) {
+        this.staticVars = staticVars;
+    }
 
     public Clazz(ClassFile classFile) {
         this.accesssFlags = classFile.getAccessFlags();

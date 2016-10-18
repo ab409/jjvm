@@ -2,6 +2,7 @@ package me.ygy.jjvm.classfile;
 
 import me.ygy.jjvm.classfile.attribute.AttributeInfo;
 import me.ygy.jjvm.classfile.attribute.impl.CodeAttribute;
+import me.ygy.jjvm.classfile.attribute.impl.ConstantValueAttribute;
 import me.ygy.jjvm.classfile.constant.ConstantPool;
 
 import java.util.ArrayList;
@@ -61,6 +62,15 @@ public class MemberInfo {
         for (AttributeInfo info : this.attributes) {
             if (info instanceof CodeAttribute) {
                 return (CodeAttribute) info;
+            }
+        }
+        return null;
+    }
+
+    public ConstantValueAttribute getConstantValueAttribute() {
+        for (AttributeInfo attribute : this.attributes) {
+            if (attribute instanceof  ConstantValueAttribute) {
+                return (ConstantValueAttribute) attribute;
             }
         }
         return null;

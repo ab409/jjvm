@@ -7,10 +7,10 @@ import me.ygy.jjvm.classfile.MemberInfo;
  */
 public class ClassMember {
 
-    private int accessFlag;
-    private String name;
-    private String descriptor;
-    private Clazz clazz;
+    protected int accessFlag;
+    protected String name;
+    protected String descriptor;
+    protected Clazz clazz;
 
     public ClassMember(MemberInfo memberInfo) {
         this.accessFlag = memberInfo.getAccessFlags();
@@ -48,5 +48,65 @@ public class ClassMember {
 
     public void setClazz(Clazz clazz) {
         this.clazz = clazz;
+    }
+
+    public boolean isPublic() {
+        return (this.accessFlag & AccessFlag.ACC_PUBLIC) != 0;
+    }
+
+    public boolean isPrivate() {
+        return (this.accessFlag & AccessFlag.ACC_PRIVATE) != 0;
+    }
+
+    public boolean isProtected() {
+        return (this.accessFlag & AccessFlag.ACC_PROTECTED) != 0;
+    }
+
+    public boolean isStatic() {
+        return (this.accessFlag & AccessFlag.ACC_STATIC) != 0;
+    }
+
+    public boolean isFinal() {
+        return (this.accessFlag & AccessFlag.ACC_FINAL) != 0;
+    }
+
+    public boolean isSynchronized() {
+        return (this.accessFlag & AccessFlag.ACC_SYNCHRONIZED) != 0;
+    }
+
+    public boolean isVolatile() {
+        return (this.accessFlag & AccessFlag.ACC_VOLATILE) != 0;
+    }
+
+    public boolean isBridge() {
+        return (this.accessFlag & AccessFlag.ACC_BRIDGE) != 0;
+    }
+
+    public boolean isTransient() {
+        return (this.accessFlag & AccessFlag.ACC_TRANSIENT) != 0;
+    }
+
+    public boolean isVarargs() {
+        return (this.accessFlag & AccessFlag.ACC_VARARGS) != 0;
+    }
+
+    public boolean isNative() {
+        return (this.accessFlag & AccessFlag.ACC_NATIVE) != 0;
+    }
+
+    public boolean isAbstract() {
+        return (this.accessFlag & AccessFlag.ACC_ABSTRACT) != 0;
+    }
+
+    public boolean isStrict() {
+        return (this.accessFlag & AccessFlag.ACC_STRICT) != 0;
+    }
+
+    public boolean isSynthetic() {
+        return (this.accessFlag & AccessFlag.ACC_SYNTHETIC) != 0;
+    }
+
+    public boolean isEnum() {
+        return (this.accessFlag & AccessFlag.ENUM) != 0;
     }
 }

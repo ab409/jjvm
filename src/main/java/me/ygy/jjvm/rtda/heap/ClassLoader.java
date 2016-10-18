@@ -1,12 +1,15 @@
 package me.ygy.jjvm.rtda.heap;
 
 import me.ygy.jjvm.classfile.ClassFile;
+import me.ygy.jjvm.classfile.ClassReader;
 import me.ygy.jjvm.classpath.ClassData;
 import me.ygy.jjvm.classpath.Classpath;
+import me.ygy.jjvm.rtda.LocalVars;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -91,5 +94,83 @@ public class ClassLoader {
 
     private void prepare(Clazz clazz) {
         // todo prepare
+        calcInstanceFieldSlotIds(clazz);
+        calcStaticFieldSlotIds(clazz);
+        allocAndInitStaticVars(clazz);
+    }
+
+    private void calcInstanceFieldSlotIds(Clazz clazz) {
+        int slotId = 0;
+        if (clazz.getSuperClass() != null) {
+            slotId = clazz.getSuperClass().getInstanceSlotCount();
+        }
+        for (Field field : clazz.getFields()) {
+            if (!field.isStatic()) {
+                field.setSlotId(slotId);
+                slotId++;
+                if (field.isLongOrDouble()) {
+                    slotId++;
+                }
+            }
+        }
+        clazz.setInstanceSlotCount(slotId);
+    }
+
+    private void calcStaticFieldSlotIds(Clazz clazz) {
+        int slotId = 0;
+        for (Field field : clazz.getFields()) {
+            if (field.isStatic()) {
+                field.setSlotId(slotId);
+                slotId++;
+                if (field.isLongOrDouble()) {
+                    slotId++;
+                }
+            }
+        }
+        clazz.setStaticSlotCount(slotId);
+    }
+
+    private void allocAndInitStaticVars(Clazz clazz) {
+        clazz.setStaticVars(new LocalVars(clazz.getStaticSlotCount()));
+        for (Field field : clazz.getFields()) {
+            if (field.isStatic() && field.isFinal()) {
+                initStaticFinalVar(clazz, field);
+            }
+        }
+    }
+
+    private void initStaticFinalVar(Clazz clazz, Field field) {
+        LocalVars staticVars = clazz.getStaticVars();
+        ConstantPool constantPool = clazz.getConstantPool();
+        int constValueIndex = field.getConstValueIndex();
+        int slotId = field.getSlotId();
+        Object constant;
+        if (constValueIndex > 0) {
+            switch (field.getDescriptor()) {
+                case "Z":
+                case "B":
+                case "C":
+                case "S":
+                case "I":
+                    constant = constantPool.getConstant(constValueIndex);
+                    staticVars.setInt(slotId, Integer.valueOf(constant.toString()));
+                    break;
+                case "J":
+                    constant = constantPool.getConstant(constValueIndex);
+                    staticVars.setLong(slotId, Long.valueOf(constant.toString()));
+                    break;
+                case "F":
+                    constant = constantPool.getConstant(constValueIndex);
+                    staticVars.setFloat(slotId, Float.valueOf(constant.toString()));
+                    break;
+                case "D":
+                    constant = constantPool.getConstant(constValueIndex);
+                    staticVars.setDouble(slotId, Double.valueOf(constant.toString()));
+                    break;
+                case "Ljava/lang.String;":
+                    //todo string implement
+                    throw new IllegalArgumentException("todo string");
+            }
+        }
     }
 }
