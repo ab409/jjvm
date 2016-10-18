@@ -55,4 +55,23 @@ public class Field extends ClassMember {
             this.constValueIndex = constantValueAttribute.getConstantValueIndex();
         }
     }
+
+    public static Field lookupField(Clazz c, String name, String descriptor) {
+        for (Field field : c.getFields()) {
+            if (field.getName().equals(name) && field.getDescriptor().equals(descriptor)) {
+                return field;
+            }
+        }
+        for (Clazz inter : c.getInterfaces()) {
+            Field field = lookupField(inter, name, descriptor);
+            if (field != null) {
+                return field;
+            }
+        }
+        if (c.getSuperClass() != null) {
+            return lookupField(c.getSuperClass(), name, descriptor);
+        }
+        return null;
+    }
+
 }

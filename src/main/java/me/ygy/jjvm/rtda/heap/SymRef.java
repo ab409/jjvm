@@ -1,5 +1,7 @@
 package me.ygy.jjvm.rtda.heap;
 
+import java.io.IOException;
+
 /**
  * Created by guangyuanyu on 2016/10/18.
  */
@@ -31,5 +33,21 @@ public class SymRef {
 
     public void setClazz(Clazz clazz) {
         this.clazz = clazz;
+    }
+
+    public Clazz resolvedClass() throws IOException {
+        if (this.clazz == null) {
+            this.resolvedClassRef();
+        }
+        return this.clazz;
+    }
+
+    public void resolvedClassRef() throws IOException {
+        Clazz other = this.constantPool.getClazz();
+        Clazz c = other.getClassLoader().loadClass(this.className);
+        if (!c.isAccessibleTo(other)) {
+            throw new IllegalAccessError(String.format("class %s is not accessible to %s", this.className, other.getName()));
+        }
+        this.clazz = c;
     }
 }

@@ -109,4 +109,17 @@ public class ClassMember {
     public boolean isEnum() {
         return (this.accessFlag & AccessFlag.ENUM) != 0;
     }
+
+    public boolean isAccessibleTo(Clazz d) {
+        if (this.isPublic())
+            return true;
+        Clazz c = this.clazz;
+        if (this.isProtected()) {
+            return d.equals(c) || d.isSubClassOf(c) || c.getPackageName().equals(d.getPackageName());
+        }
+        if (!this.isPrivate()) {
+            return c.getPackageName().equals(d.getPackageName());
+        }
+        return d.equals(c);
+    }
 }

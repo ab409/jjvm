@@ -10,7 +10,7 @@ import java.util.List;
 public class Objectz {
 
     private Clazz clazz;
-    private List<LocalVars.Slot> slots;
+    private LocalVars fields;
 
     public Clazz getClazz() {
         return clazz;
@@ -20,11 +20,11 @@ public class Objectz {
         this.clazz = clazz;
     }
 
-    public List<LocalVars.Slot> getSlots() {
-        return slots;
+    public LocalVars getFields() {
+        return fields;
     }
 
-    public void setSlots(List<LocalVars.Slot> slots) {
-        this.slots = slots;
+    public void setFields(LocalVars fields) {
+        this.fields = fields;
     }
 }

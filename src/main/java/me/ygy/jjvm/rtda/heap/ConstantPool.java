@@ -56,4 +56,11 @@ public class ConstantPool {
         }
     }
 
+    public Clazz getClazz() {
+        return clazz;
+    }
+
+    public List<Object> getConstants() {
+        return constants;
+    }
 }

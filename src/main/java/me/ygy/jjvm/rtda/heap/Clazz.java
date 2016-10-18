@@ -172,6 +172,43 @@ public class Clazz {
         this.interfaceNames = interfaceNames;
     }
 
+    public boolean isAccessibleTo(Clazz other) {
+        return this.isPublic() || this.getPackageName().equals(other.getPackageName());
+    }
+
+    public String getPackageName() {
+        int i = this.name.lastIndexOf("/");
+        if (i >= 0) {
+            return this.name.substring(0, i);
+        }
+        return "";
+    }
+
+    public boolean isSubClassOf(Clazz c) {
+        Clazz superClass = this.superClass;
+        while (superClass != null) {
+            if (superClass.equals(c)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isSuperClassOf(Clazz c) {
+        return c.isSubClassOf(this);
+    }
+
+    public Objectz newObject() {
+        return newObject(this);
+    }
+
+    public static Objectz newObject(Clazz clazz) {
+        Objectz obj = new Objectz();
+        obj.setClazz(clazz);
+        obj.setFields(new LocalVars(clazz.instanceSlotCount));
+        return obj;
+    }
+
     @Override
     public String toString() {
         return "{Class name: "+this.name+"}";
