@@ -1,6 +1,5 @@
 package me.ygy.jjvm.rtda.heap;
 
-import com.sun.xml.internal.ws.org.objectweb.asm.ClassAdapter;
 import me.ygy.jjvm.classfile.ClassFile;
 import me.ygy.jjvm.classpath.ClassData;
 import me.ygy.jjvm.classpath.Classpath;

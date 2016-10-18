@@ -1,5 +1,7 @@
 package me.ygy.jjvm.rtda;
 
+import me.ygy.jjvm.rtda.heap.Objectz;
+
 /**
  * Created by guangyuanyu on 2016/10/14.
  */
@@ -7,7 +9,7 @@ public class LocalVars {
 
     public static class Slot {
         int num;
-        Object ref;
+        Objectz ref;
     }
 
     private Slot[] slots;
@@ -60,11 +62,11 @@ public class LocalVars {
         return Double.longBitsToDouble(bits);
     }
 
-    public void setRef(int index, Object ref) {
+    public void setRef(int index, Objectz ref) {
         this.slots[index].ref = ref;
     }
 
-    public Object getRef(int index) {
+    public Objectz getRef(int index) {
         return this.slots[index].ref;
     }
 

@@ -1,5 +1,7 @@
 package me.ygy.jjvm.rtda;
 
+import me.ygy.jjvm.rtda.heap.Objectz;
+
 /**
  * Created by guangyuanyu on 2016/10/14.
  */
@@ -62,14 +64,14 @@ public class OperandStack {
         return Double.longBitsToDouble(bits);
     }
 
-    public void pushRef(Object ref) {
+    public void pushRef(Objectz ref) {
         this.slots[this.size].ref = ref;
         this.size++;
     }
 
-    public Object popRef() {
+    public Objectz popRef() {
         this.size--;
-        Object ref = this.slots[this.size].ref;
+        Objectz ref = this.slots[this.size].ref;
         this.slots[this.size].ref = null;
         return ref;
     }
