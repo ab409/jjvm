@@ -15,6 +15,18 @@ public class Method extends ClassMember {
     private int maxLocals;
     private byte[] code;
 
+    public int getMaxStack() {
+        return maxStack;
+    }
+
+    public int getMaxLocals() {
+        return maxLocals;
+    }
+
+    public byte[] getCode() {
+        return code;
+    }
+
     public Method(MemberInfo memberInfo) {
         super(memberInfo);
         copyAttributes(memberInfo);

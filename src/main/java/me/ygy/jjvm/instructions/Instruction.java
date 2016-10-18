@@ -57,6 +57,7 @@ import me.ygy.jjvm.instructions.math.sub.DSub;
 import me.ygy.jjvm.instructions.math.sub.FSub;
 import me.ygy.jjvm.instructions.math.sub.ISub;
 import me.ygy.jjvm.instructions.math.sub.LSub;
+import me.ygy.jjvm.instructions.references.*;
 import me.ygy.jjvm.instructions.stack.*;
 import me.ygy.jjvm.instructions.stores.a.*;
 import me.ygy.jjvm.instructions.stores.d.*;
@@ -577,23 +578,29 @@ public interface Instruction {
                 //todo _return
                 throw new IllegalArgumentException("_return not implement");
             case 0xb2:
-                //todo GET_STATIC
-                throw new IllegalArgumentException("GET_STATIC not implement");
+                //GET_STATIC
+//                throw new IllegalArgumentException("GET_STATIC not implement");
+                return new GetStatic();
             case 0xb3:
-                //todo PUT_STATIC
-                throw new IllegalArgumentException("PUT_STATIC not implement");
+                //PUT_STATIC
+//                throw new IllegalArgumentException("PUT_STATIC not implement");
+                return new PutStatic();
             case 0xb4:
-                //todo GET_FIELD
-                throw new IllegalArgumentException("GET_FIELD not implement");
+                //GET_FIELD
+//                throw new IllegalArgumentException("GET_FIELD not implement");
+                return new GetField();
             case 0xb5:
-                //todo PUT_FIELD
-                throw new IllegalArgumentException("PUT_FIELD not implement");
+                //PUT_FIELD
+//                throw new IllegalArgumentException("PUT_FIELD not implement");
+                return new PutField();
             case 0xb6:
-                //todo PUT_FIELD
-                throw new IllegalArgumentException("INVOKE_VIRTUAL not implement");
+                //todo INVOKE_VIRTUAL
+//                throw new IllegalArgumentException("INVOKE_VIRTUAL not implement");
+                return new InvokeVirtual();
             case 0xb7:
                 //todo INVOKE_SPECIAL
-                throw new IllegalArgumentException("INVOKE_SPECIAL not implement");
+//                throw new IllegalArgumentException("INVOKE_SPECIAL not implement");
+                return new InvokeSpecial();
             case 0xb8:
                 //todo INVOKE_STATIC
                 throw new IllegalArgumentException("INVOKE_STATIC not implement");
@@ -604,8 +611,9 @@ public interface Instruction {
                 //todo INVOKE_DYNAMIC
                 throw new IllegalArgumentException("INVOKE_DYNAMIC not implement");
             case 0xbb:
-                //todo NEW
-                throw new IllegalArgumentException("NEW not implement");
+                //NEW
+//                throw new IllegalArgumentException("NEW not implement");
+                return new New();
             case 0xbc:
                 //todo NEW_ARRAY
                 throw new IllegalArgumentException("NEW_ARRAY not implement");
@@ -619,11 +627,13 @@ public interface Instruction {
                 //todo athrow
                 throw new IllegalArgumentException("athrow not implement");
             case 0xc0:
-                //todo CHECK_CAST
-                throw new IllegalArgumentException("CHECK_CAST not implement");
+                //CHECK_CAST
+//                throw new IllegalArgumentException("CHECK_CAST not implement");
+                return new CheckCast();
             case 0xc1:
-                //todo INSTANCE_OF
-                throw new IllegalArgumentException("INSTANCE_OF not implement");
+                //INSTANCE_OF
+//                throw new IllegalArgumentException("INSTANCE_OF not implement");
+                return new Instanceof();
             case 0xc2:
                 //todo monitorenter
                 throw new IllegalArgumentException("monitorenter not implement");

@@ -6,22 +6,18 @@ import me.ygy.jjvm.instructions.BytecodeReader;
 import me.ygy.jjvm.instructions.Instruction;
 import me.ygy.jjvm.rtda.Frame;
 import me.ygy.jjvm.rtda.Thread;
+import me.ygy.jjvm.rtda.heap.Method;
 
 /**
  * Created by guangyuanyu on 2016/10/17.
  */
 public class Interpreter {
 
-    public static void interpret(MemberInfo memberInfo) {
-        CodeAttribute codeAttribute = memberInfo.getCodeAttribute();
-        int maxLocals = codeAttribute.getMaxLocals();
-        int maxStack = codeAttribute.getMaxStack();
-        byte[] code = codeAttribute.getCode();
+    public static void interpret(Method method) {
         me.ygy.jjvm.rtda.Thread thread = new me.ygy.jjvm.rtda.Thread();
-        Frame frame = new Frame(maxLocals, maxStack, thread);
-        thread.pushFrame(frame);
+        Frame frame = thread.newFrame(method);
         try {
-            loop(thread, code);
+            loop(thread, method.getCode());
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(String.format("LocalVars:%s\n", frame.getLocalVars().toString()));

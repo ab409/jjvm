@@ -1,5 +1,7 @@
 package me.ygy.jjvm.rtda;
 
+import me.ygy.jjvm.rtda.heap.Method;
+
 /**
  * Created by guangyuanyu on 2016/10/14.
  */
@@ -34,5 +36,9 @@ public class Thread {
 
     public void setPc(int pc) {
         this.pc = pc;
+    }
+
+    public Frame newFrame(Method method) {
+        return new Frame(method, this);
     }
 }

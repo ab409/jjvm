@@ -6,10 +6,11 @@ import me.ygy.jjvm.classpath.ClassData;
 import me.ygy.jjvm.classpath.Classpath;
 import me.ygy.jjvm.cmd.JavaCmd;
 import me.ygy.jjvm.interpret.Interpreter;
-import me.ygy.jjvm.rtda.Frame;
 import me.ygy.jjvm.rtda.LocalVars;
 import me.ygy.jjvm.rtda.OperandStack;
-import me.ygy.jjvm.rtda.Thread;
+import me.ygy.jjvm.rtda.heap.ClassLoader;
+import me.ygy.jjvm.rtda.heap.Clazz;
+import me.ygy.jjvm.rtda.heap.Method;
 
 import java.io.IOException;
 
@@ -61,15 +62,25 @@ public class Main {
         printClassInfo(classFile);
 
         soutLine();
-        Thread thread = new Thread();
-        Frame frame = new Frame(100, 100, thread);
-        testLocalVars(frame.getLocalVars());
-        testOperandStack(frame.getOperandStack());
+//        Thread thread = new Thread();
+//        Frame frame = new Frame(100, 100, thread);
+//        testLocalVars(frame.getLocalVars());
+//        testOperandStack(frame.getOperandStack());
 
         soutLine();
-        MemberInfo main = getMainMethod(classFile);
-        if (main != null) {
-            Interpreter.interpret(main);
+//        MemberInfo main = getMainMethod(classFile);
+//        if (main != null) {
+//            Interpreter.interpret(main);
+//        } else {
+//            System.out.println(String.format("main method not fount in class %s\n", className));
+//        }
+
+        soutLine();
+        ClassLoader classLoader = new ClassLoader(classpath);
+        Clazz mainClass = classLoader.loadClass(className);
+        Method mainMethod = mainClass.getMainMethod();
+        if (mainMethod != null) {
+            Interpreter.interpret(mainMethod);
         } else {
             System.out.println(String.format("main method not fount in class %s\n", className));
         }

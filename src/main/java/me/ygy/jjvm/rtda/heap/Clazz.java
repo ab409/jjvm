@@ -241,6 +241,19 @@ public class Clazz {
         return false;
     }
 
+    public Method getMainMethod() {
+        return this.getStaticMethod("main", "([Ljava/lang/String;)V");
+    }
+
+    public Method getStaticMethod(String name, String descriptor) {
+        for (Method method : this.getMethods()) {
+            if (method.isStatic() && method.getName().equals(name) && method.getDescriptor().equals(descriptor)) {
+                return method;
+            }
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         return "{Class name: "+this.name+"}";

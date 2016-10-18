@@ -37,9 +37,10 @@ public class Frame {
         return nextPc;
     }
 
-    public Frame(int maxLocals, int maxStack, me.ygy.jjvm.rtda.Thread thread) {
-        this.localVars = new LocalVars(maxLocals);
-        this.operandStack = new OperandStack(maxStack);
+    public Frame(Method method, me.ygy.jjvm.rtda.Thread thread) {
+        this.method = method;
+        this.localVars = new LocalVars(method.getMaxLocals());
+        this.operandStack = new OperandStack(method.getMaxStack());
         this.thread = thread;
         this.nextPc = 0;
     }
