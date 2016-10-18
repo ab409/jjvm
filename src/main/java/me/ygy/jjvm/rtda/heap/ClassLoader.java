@@ -41,7 +41,7 @@ public class ClassLoader {
     }
 
     private Clazz loadNonArrayClass(String name) throws IOException {
-        // todo defineclass linkclass
+        // defineclass linkclass
         ClassData classData = this.readClass(name);
         Clazz clazz = this.defineClass(classData.getData());
         this.link(clazz);
@@ -74,7 +74,7 @@ public class ClassLoader {
     }
 
     private void resolveInterfaces(Clazz clazz) throws IOException {
-        int interfaceCount = clazz.getInterfaces().size();
+        int interfaceCount = clazz.getInterfaceNames().length;
         if (interfaceCount > 0) {
             clazz.setInterfaces(new ArrayList<>(interfaceCount));
             for (String interfaceName : clazz.getInterfaceNames()) {
@@ -93,7 +93,7 @@ public class ClassLoader {
     }
 
     private void prepare(Clazz clazz) {
-        // todo prepare
+        // prepare
         calcInstanceFieldSlotIds(clazz);
         calcStaticFieldSlotIds(clazz);
         allocAndInitStaticVars(clazz);

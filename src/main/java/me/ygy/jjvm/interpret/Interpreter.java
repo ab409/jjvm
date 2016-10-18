@@ -16,6 +16,7 @@ public class Interpreter {
     public static void interpret(Method method) {
         me.ygy.jjvm.rtda.Thread thread = new me.ygy.jjvm.rtda.Thread();
         Frame frame = thread.newFrame(method);
+        thread.pushFrame(frame);
         try {
             loop(thread, method.getCode());
         } catch (Exception e) {

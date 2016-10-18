@@ -80,8 +80,10 @@ public class Clazz {
         this.name = classFile.className();
         this.superClassName = classFile.superClassName();
         this.interfaceNames = classFile.interfaceNames();
-        //todo constantpool fields methods
-
+        //constantpool fields methods
+        this.constantPool = new ConstantPool(this, classFile.getConstantPool());
+        this.fields = Field.newFields(this, classFile.getFields());
+        this.methods = Method.newMethods(this, classFile.getMethods());
     }
 
     public void setInterfaces(List<Clazz> interfaces) {

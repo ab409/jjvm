@@ -12,29 +12,30 @@ import java.util.List;
 public class ConstantPool {
 
     private Clazz clazz;
-    private List<Object> constants;
+    private Object[] constants;
 
     public Object getConstant(int index) {
-        if (index < 0 || index >= constants.size())
+        if (index < 0 || index >= constants.length)
             throw new IndexOutOfBoundsException("No constants at index "+index);
-        return this.constants.get(index);
+        return this.constants[index];
     }
 
     public ConstantPool(Clazz clazz, me.ygy.jjvm.classfile.constant.ConstantPool cp) {
         int cpCount = cp.getConstantInfos().length;
-        this.constants = new ArrayList<>(cpCount);
+        this.constants = new Object[cpCount];
         this.clazz = clazz;
-        for (ConstantInfo info : cp.getConstantInfos()) {
+        for (int i = 1; i < cp.getConstantInfos().length; i++) {
+            ConstantInfo info = cp.getConstantInfo(i);
             if (info instanceof ConstantIntegerInfo) {
-                this.constants.add(((ConstantIntegerInfo) info).getVal());
+                this.constants[i] = ((ConstantIntegerInfo) info).getVal();
             } else if (info instanceof ConstantFloatInfo) {
-                this.constants.add(((ConstantFloatInfo) info).getVal());
+                this.constants[i] = ((ConstantFloatInfo) info).getVal();
             } else if (info instanceof ConstantLongInfo) {
-                this.constants.add(((ConstantLongInfo) info).getVal());
+                this.constants[i] = ((ConstantLongInfo) info).getVal();
             } else if (info instanceof ConstantDoubleInfo) {
-                this.constants.add(((ConstantDoubleInfo) info).getVal());
+                this.constants[i] = ((ConstantDoubleInfo) info).getVal();
             } else if (info instanceof ConstantStringInfo) {
-                this.constants.add(info.toString());
+                this.constants[i] = info.toString();
             } else if (info instanceof ConstantUtf8Info) {
                 // todo newConstantUtf8
 //                this.constants.add()
@@ -60,7 +61,7 @@ public class ConstantPool {
         return clazz;
     }
 
-    public List<Object> getConstants() {
+    public Object[] getConstants() {
         return constants;
     }
 }

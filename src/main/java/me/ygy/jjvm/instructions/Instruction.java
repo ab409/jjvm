@@ -257,14 +257,17 @@ public interface Instruction {
             case 0x11:
                 return new SIPush();
             case 0x12:
-                //todo ldc
-                throw new IllegalArgumentException("ldc not implement");
+                //ldc
+//                throw new IllegalArgumentException("ldc not implement");
+                return new Ldc();
             case 0x13:
-                //todo ldc
-                throw new IllegalArgumentException("ldc not implement");
+                //ldcW
+//                throw new IllegalArgumentException("ldc not implement");
+                return new LdcW();
             case 0x14:
-                //todo ldc
-                throw new IllegalArgumentException("ldc not implement");
+                //ldc2W
+//                throw new IllegalArgumentException("ldc not implement");
+                return new Ldc2W();
             case 0x15:
                 return new ILoad();
             case 0x16:
