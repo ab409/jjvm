@@ -27,4 +27,8 @@ public class Objectz {
     public void setFields(LocalVars fields) {
         this.fields = fields;
     }
+
+    public boolean isInstanceOf(Clazz clazz) {
+        return clazz.isAssignableFrom(this.getClazz());
+    }
 }

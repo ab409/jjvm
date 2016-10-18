@@ -209,6 +209,38 @@ public class Clazz {
         return obj;
     }
 
+    public boolean isAssignableFrom(Clazz other) {
+        if (this.equals(other)) {
+            return true;
+        }
+        if (!this.isInterface()) {
+            return other.isSubClassOf(this);
+        } else {
+            return other.isImplements(this);
+        }
+    }
+
+    public boolean isImplements(Clazz inter) {
+        Clazz c = this;
+        while (c != null) {
+            for (Clazz clazz : c.getInterfaces()) {
+                if (clazz.equals(inter) || clazz.isSubInterfaceOf(inter)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean isSubInterfaceOf(Clazz inter) {
+        for (Clazz superInter : this.getInterfaces()) {
+            if (superInter.equals(inter) || superInter.isSubInterfaceOf(inter)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         return "{Class name: "+this.name+"}";
