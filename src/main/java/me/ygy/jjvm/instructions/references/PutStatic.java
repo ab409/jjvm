@@ -6,6 +6,8 @@ import me.ygy.jjvm.rtda.LocalVars;
 import me.ygy.jjvm.rtda.OperandStack;
 import me.ygy.jjvm.rtda.heap.*;
 
+import java.io.IOException;
+
 /**
  * Created by guangyuanyu on 2016/10/18.
  */
@@ -17,7 +19,12 @@ public class PutStatic extends Index16Instruction {
         Clazz currentClazz = currentMethod.getClazz();
         ConstantPool constantPool = currentClazz.getConstantPool();
         FieldRef fieldRef = (FieldRef) constantPool.getConstant(this.index);
-        Field field = fieldRef.getField();
+        Field field = null;
+        try {
+            field = fieldRef.resolvedField();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Clazz clazz = field.getClazz();
 
         if (!field.isStatic()) {

@@ -5,6 +5,8 @@ import me.ygy.jjvm.rtda.Frame;
 import me.ygy.jjvm.rtda.OperandStack;
 import me.ygy.jjvm.rtda.heap.*;
 
+import java.io.IOException;
+
 /**
  * Created by guangyuanyu on 2016/10/18.
  */
@@ -16,7 +18,12 @@ public class PutField extends Index16Instruction {
         Clazz currentClazz = currentMethod.getClazz();
         ConstantPool constantPool = currentClazz.getConstantPool();
         FieldRef fieldRef = (FieldRef) constantPool.getConstant(this.index);
-        Field field = fieldRef.getField();
+        Field field = null;
+        try {
+            field = fieldRef.resolvedField();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         if (field.isStatic()) {
             throw new IncompatibleClassChangeError(
                     String.format("%s' field %s is static", field.getClazz().getName(), field.getName()));

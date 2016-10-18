@@ -40,13 +40,17 @@ public class ConstantPool {
                 // todo newConstantUtf8
 //                this.constants.add()
             } else if (info instanceof ConstantClassInfo) {
-                // todo newConstantClass
+                // newConstantClass
+                this.constants[i] = new ClassRef(this, (ConstantClassInfo) info);
             } else if (info instanceof ConstantFieldrefInfo) {
-                // todo newConstantFieldref
+                // newConstantFieldref
+                this.constants[i] = new FieldRef(this, (ConstantFieldrefInfo) info);
             } else if (info instanceof ConstantMemberrefInfo) {
-                // todo newConstantMethodref
+                // newConstantMethodref
+                this.constants[i] = new MethodRef(this, (ConstantMemberrefInfo) info);
             } else if (info instanceof ConstantInterfaceMethodrefInfo) {
-                // todo newConstantInterfaceMethodref
+                // newConstantInterfaceMethodref
+                this.constants[i] = new InterfaceMethodRef(this, (ConstantInterfaceMethodrefInfo) info);
             } else if (info instanceof ConstantInvokeDynamicInfo) {
                 // todo newConstantInvokeDynamic
             } else if (info instanceof ConstantMethodHandleInfo) {
