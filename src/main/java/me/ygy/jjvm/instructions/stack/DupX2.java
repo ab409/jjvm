@@ -16,9 +16,12 @@ public class DupX2 extends NoOperandsInstruction {
         LocalVars.Slot v1 = stack.popSlot();
         LocalVars.Slot v2 = stack.popSlot();
         LocalVars.Slot v3 = stack.popSlot();
+        LocalVars.Slot v1Dup = new LocalVars.Slot();
+        v1Dup.num = v1.num;
+        v1Dup.ref = v1.ref;
         stack.pushSlot(v1);
         stack.pushSlot(v3);
         stack.pushSlot(v2);
-        stack.pushSlot(v1);
+        stack.pushSlot(v1Dup);
     }
 }

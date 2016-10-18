@@ -8,8 +8,8 @@ import me.ygy.jjvm.rtda.heap.Objectz;
 public class LocalVars {
 
     public static class Slot {
-        int num;
-        Objectz ref;
+        public int num;
+        public Objectz ref;
     }
 
     private Slot[] slots;

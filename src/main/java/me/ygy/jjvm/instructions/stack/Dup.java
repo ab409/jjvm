@@ -14,7 +14,10 @@ public class Dup extends NoOperandsInstruction {
     public void execute(Frame frame) {
         OperandStack stack = frame.getOperandStack();
         LocalVars.Slot slot = stack.popSlot();
+        LocalVars.Slot dup = new LocalVars.Slot();
+        dup.num = slot.num;
+        dup.ref = slot.ref;
         stack.pushSlot(slot);
-        stack.pushSlot(slot);
+        stack.pushSlot(dup);
     }
 }
