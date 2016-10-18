@@ -12,8 +12,10 @@ public class Clazz {
     private String name;
     private String superClassName;
     private String[] interfaceNames;
-    //todo constantpool field method classloader
+    //todo constantpool field method
 //    private ConstantPool constantPool;
+
+    private ClassLoader classLoader;
 
     private Clazz superClass;
     private List<Clazz> interfaces;
@@ -30,6 +32,22 @@ public class Clazz {
         this.interfaceNames = classFile.interfaceNames();
         //todo constantpool fields methods
 
+    }
+
+    public void setInterfaces(List<Clazz> interfaces) {
+        this.interfaces = interfaces;
+    }
+
+    public void setSuperClass(Clazz superClass) {
+        this.superClass = superClass;
+    }
+
+    public ClassLoader getClassLoader() {
+        return classLoader;
+    }
+
+    public void setClassLoader(ClassLoader classLoader) {
+        this.classLoader = classLoader;
     }
 
     public int getAccesssFlags() {
@@ -94,6 +112,14 @@ public class Clazz {
 
     public boolean isEnum() {
         return (this.accesssFlags & AccessFlag.ENUM) != 0;
+    }
+
+    public void setSuperClassName(String superClassName) {
+        this.superClassName = superClassName;
+    }
+
+    public void setInterfaceNames(String[] interfaceNames) {
+        this.interfaceNames = interfaceNames;
     }
 
     @Override
