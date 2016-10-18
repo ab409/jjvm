@@ -87,7 +87,7 @@ public class OperandStack {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("operandStack size: ").append(this.size).append("\n");
+        builder.append("operandStack size: ").append(this.slots.length).append("\n");
         builder.append("slots: \n");
         LocalVars.Slot[] slots = this.slots;
         for (int i = 0; i < slots.length; i++) {
