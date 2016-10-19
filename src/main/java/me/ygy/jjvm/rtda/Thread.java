@@ -21,6 +21,9 @@ public class Thread {
     public Frame popFrame() {
         return this.stack.pop();
     }
+    public Frame topFrame() {
+        return this.stack.top();
+    }
 
     public Frame currentFrame() {
         return this.stack.top();

@@ -81,4 +81,10 @@ public class LocalVars {
         }
         return builder.toString();
     }
+
+    public void setSlot(int index, Slot slot) {
+        this.slots[index].num = slot.num;
+        this.slots[index].ref = slot.ref;
+    }
+
 }
