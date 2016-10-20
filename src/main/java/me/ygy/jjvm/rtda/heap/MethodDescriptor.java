@@ -2,6 +2,7 @@ package me.ygy.jjvm.rtda.heap;
 
 import com.google.common.base.Strings;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,6 +16,12 @@ public class MethodDescriptor {
     public List<String> getParameterTypes() {
         return parameterTypes;
     }
+
+    public MethodDescriptor() {
+        this.parameterTypes = new ArrayList<>();
+        this.returnType = "";
+    }
+
 
     public void setParameterTypes(List<String> parameterTypes) {
         this.parameterTypes = parameterTypes;

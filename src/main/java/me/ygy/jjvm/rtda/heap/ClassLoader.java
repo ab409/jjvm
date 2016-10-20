@@ -19,8 +19,9 @@ public class ClassLoader {
 
     private Classpath classpath;
     private Map<String, Clazz> classMap;
+    private boolean verboseFlag;
 
-    public ClassLoader(Classpath classpath) {
+    public ClassLoader(Classpath classpath, boolean verboseClassFlag) {
         this.classpath = classpath;
         this.classMap = new HashMap<>();
     }
@@ -45,6 +46,9 @@ public class ClassLoader {
         ClassData classData = this.readClass(name);
         Clazz clazz = this.defineClass(classData.getData());
         this.link(clazz);
+        if (this.verboseFlag) {
+            System.out.println(String.format("[Loaded %s from %s]", name, classData.getEntry()));
+        }
         return clazz;
     }
 

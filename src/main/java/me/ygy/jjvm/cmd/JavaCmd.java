@@ -17,6 +17,9 @@ public class JavaCmd {
     private String clazz;
     private List<String> args;
 
+    private boolean verboseClassFlag;
+    private boolean verboseInstFlag;
+
     public static JavaCmd newCmd(String[] args) throws ParseException {
         if (args.length < 1) {
             throw new IllegalArgumentException();
@@ -39,6 +42,12 @@ public class JavaCmd {
 
         Option jreOpt = new Option("Xjre", true, "path to jre");
         options.addOption(jreOpt);
+
+        Option verboseClassFlag = new Option("verboseClassFlag", true, "verboseClassFlag");
+        options.addOption(verboseClassFlag);
+
+        Option verboseInstFlag = new Option("verboseInstFlag", true, "verboseInstFlag");
+        options.addOption(verboseInstFlag);
 
         HelpFormatter hf = new HelpFormatter();
         hf.setWidth(110);
@@ -64,6 +73,14 @@ public class JavaCmd {
 
         if (commandLine.hasOption("Xjre")) {
             cmd.setxJreOption(commandLine.getOptionValue("Xjre"));
+        }
+
+        if (commandLine.hasOption("verboseClassFlag")) {
+            cmd.setVerboseClassFlag(Boolean.valueOf(commandLine.getOptionValue("verboseClassFlag")));
+        }
+
+        if (commandLine.hasOption("verboseInstFlag")) {
+            cmd.setVerboseClassFlag(Boolean.valueOf(commandLine.getOptionValue("verboseInstFlag")));
         }
 
         List argList = commandLine.getArgList();
@@ -122,5 +139,21 @@ public class JavaCmd {
 
     public void setxJreOption(String xJreOption) {
         this.xJreOption = xJreOption;
+    }
+
+    public boolean isVerboseClassFlag() {
+        return verboseClassFlag;
+    }
+
+    public void setVerboseClassFlag(boolean verboseClassFlag) {
+        this.verboseClassFlag = verboseClassFlag;
+    }
+
+    public boolean isVerboseInstFlag() {
+        return verboseInstFlag;
+    }
+
+    public void setVerboseInstFlag(boolean verboseInstFlag) {
+        this.verboseInstFlag = verboseInstFlag;
     }
 }

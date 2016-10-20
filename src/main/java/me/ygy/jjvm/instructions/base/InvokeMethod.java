@@ -22,5 +22,13 @@ public class InvokeMethod {
                 newFrame.getLocalVars().setSlot(i, slot);
             }
         }
+
+        if (method.isNative()) {
+            if (method.getName().equals("registerNatives")) {
+                thread.popFrame();
+            } else {
+                throw new IllegalArgumentException("native method is not implemented");
+            }
+        }
     }
 }

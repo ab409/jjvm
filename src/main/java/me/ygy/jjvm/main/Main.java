@@ -76,11 +76,11 @@ public class Main {
 //        }
 
         soutLine();
-        ClassLoader classLoader = new ClassLoader(classpath);
+        ClassLoader classLoader = new ClassLoader(classpath, cmd.isVerboseClassFlag());
         Clazz mainClass = classLoader.loadClass(className);
         Method mainMethod = mainClass.getMainMethod();
         if (mainMethod != null) {
-            Interpreter.interpret(mainMethod);
+            Interpreter.interpret(mainMethod, cmd.isVerboseInstFlag());
         } else {
             System.out.println(String.format("main method not fount in class %s\n", className));
         }
