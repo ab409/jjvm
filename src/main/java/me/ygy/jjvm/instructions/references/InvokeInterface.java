@@ -30,6 +30,7 @@ public class InvokeInterface implements Instruction {
         ConstantPool constantPool = frame.getMethod().getClazz().getConstantPool();
         InterfaceMethodRef methodRef = (InterfaceMethodRef) constantPool.getConstant(this.index);
         Method method = null;
+        Method methodToBeInvoked = null;
         try {
             method = methodRef.resolvedInterfaceMethod();
             if (method.isStatic() || method.isPrivate()) {
@@ -43,9 +44,16 @@ public class InvokeInterface implements Instruction {
             if (!ref.getClazz().isImplements(methodRef.resolvedClass())) {
                 throw new IncompatibleClassChangeError("class should implement interface");
             }
+            methodToBeInvoked = Method.lookupMethodInClass(ref.getClazz(), methodRef.getName(), methodRef.getDescriptor());
+            if (methodToBeInvoked == null || methodToBeInvoked.isAbstract()) {
+                throw new AbstractMethodError("subclass should implement all interface methods");
+            }
+            if (!methodToBeInvoked.isPublic()) {
+                throw new IllegalAccessError("interface method should be public");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        InvokeMethod.invokeMethod(frame, method);
+        InvokeMethod.invokeMethod(frame, methodToBeInvoked);
     }
 }
