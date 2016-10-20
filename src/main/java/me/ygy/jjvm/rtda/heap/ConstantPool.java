@@ -32,8 +32,10 @@ public class ConstantPool {
                 this.constants[i] = ((ConstantFloatInfo) info).getVal();
             } else if (info instanceof ConstantLongInfo) {
                 this.constants[i] = ((ConstantLongInfo) info).getVal();
+                i++;
             } else if (info instanceof ConstantDoubleInfo) {
                 this.constants[i] = ((ConstantDoubleInfo) info).getVal();
+                i++;
             } else if (info instanceof ConstantStringInfo) {
                 this.constants[i] = info.toString();
             } else if (info instanceof ConstantUtf8Info) {
