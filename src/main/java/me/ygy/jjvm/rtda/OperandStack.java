@@ -86,6 +86,10 @@ public class OperandStack {
         return this.slots[this.size];
     }
 
+    public Objectz getRefFromTop(int index) {
+        return this.slots[this.size - 1 - index].ref;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

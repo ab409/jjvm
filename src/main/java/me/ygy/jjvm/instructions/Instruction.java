@@ -7,9 +7,7 @@ import me.ygy.jjvm.instructions.comparisons.ifacmp.IfACmpNe;
 import me.ygy.jjvm.instructions.comparisons.ifcondition.*;
 import me.ygy.jjvm.instructions.comparisons.ificmp.*;
 import me.ygy.jjvm.instructions.constants.*;
-import me.ygy.jjvm.instructions.control.Goto;
-import me.ygy.jjvm.instructions.control.LoopupSwitch;
-import me.ygy.jjvm.instructions.control.TableSwitch;
+import me.ygy.jjvm.instructions.control.*;
 import me.ygy.jjvm.instructions.conversions.d2x.D2F;
 import me.ygy.jjvm.instructions.conversions.d2x.D2I;
 import me.ygy.jjvm.instructions.conversions.d2x.D2L;
@@ -563,23 +561,29 @@ public interface Instruction {
             case 0xab:
                 return new LoopupSwitch();
             case 0xac:
-                //todo ireturn
-                throw new IllegalArgumentException("ireturn not implement");
+                // ireturn
+//                throw new IllegalArgumentException("ireturn not implement");
+                return new IReturn();
             case 0xad:
-                //todo lreturn
-                throw new IllegalArgumentException("lreturn not implement");
+                // lreturn
+//                throw new IllegalArgumentException("lreturn not implement");
+                return new LReturn();
             case 0xae:
-                //todo freturn
-                throw new IllegalArgumentException("freturn not implement");
+                // freturn
+//                throw new IllegalArgumentException("freturn not implement");
+                return new FReturn();
             case 0xaf:
-                //todo dreturn
-                throw new IllegalArgumentException("dreturn not implement");
+                // dreturn
+//                throw new IllegalArgumentException("dreturn not implement");
+                return new DReturn();
             case 0xb0:
-                //todo areturn
-                throw new IllegalArgumentException("areturn not implement");
+                // areturn
+//                throw new IllegalArgumentException("areturn not implement");
+                return new AReturn();
             case 0xb1:
-                //todo _return
-                throw new IllegalArgumentException("_return not implement");
+                // _return
+//                throw new IllegalArgumentException("_return not implement");
+                return new Return();
             case 0xb2:
                 //GET_STATIC
 //                throw new IllegalArgumentException("GET_STATIC not implement");
@@ -597,19 +601,21 @@ public interface Instruction {
 //                throw new IllegalArgumentException("PUT_FIELD not implement");
                 return new PutField();
             case 0xb6:
-                //todo INVOKE_VIRTUAL
+                // INVOKE_VIRTUAL
 //                throw new IllegalArgumentException("INVOKE_VIRTUAL not implement");
                 return new InvokeVirtual();
             case 0xb7:
-                //todo INVOKE_SPECIAL
+                //INVOKE_SPECIAL
 //                throw new IllegalArgumentException("INVOKE_SPECIAL not implement");
                 return new InvokeSpecial();
             case 0xb8:
-                //todo INVOKE_STATIC
-                throw new IllegalArgumentException("INVOKE_STATIC not implement");
+                //INVOKE_STATIC
+//                throw new IllegalArgumentException("INVOKE_STATIC not implement");
+                return new InvokeStatic();
             case 0xb9:
-                //todo INVOKE_INTERFACE
-                throw new IllegalArgumentException("INVOKE_INTERFACE not implement");
+                //INVOKE_INTERFACE
+//                throw new IllegalArgumentException("INVOKE_INTERFACE not implement");
+                return new InvokeInterface();
             case 0xba:
                 //todo INVOKE_DYNAMIC
                 throw new IllegalArgumentException("INVOKE_DYNAMIC not implement");
