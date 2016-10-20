@@ -90,7 +90,7 @@ public class MethodDescriptor {
         private void parseParamTypes() {
             while (true) {
                 String t = this.parseFieldType();
-                if (Strings.isNullOrEmpty(t)) {
+                if (!Strings.isNullOrEmpty(t)) {
                     this.md.getParameterTypes().add(t);
                 } else {
                     break;

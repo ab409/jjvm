@@ -38,7 +38,7 @@ public class Interpreter {
             instruction.fetchOperands(reader);
             frame.setNextPc(reader.getPc());
             if (logInst) {
-
+                logInstruction(frame, instruction);
             }
             //execute
             System.out.println(String.format("pc:%2d inst %s", pc, instruction.getClass().toString()));

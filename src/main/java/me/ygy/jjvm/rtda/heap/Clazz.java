@@ -192,6 +192,7 @@ public class Clazz {
             if (superClass.equals(c)) {
                 return true;
             }
+            superClass = superClass.superClass;
         }
         return false;
     }
