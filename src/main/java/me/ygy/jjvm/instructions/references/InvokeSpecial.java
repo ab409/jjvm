@@ -32,7 +32,7 @@ public class InvokeSpecial extends Index16Instruction {
         if (resolvedMethod.isStatic()) {
             throw new IncompatibleClassChangeError("method should not be static");
         }
-        Objectz ref = frame.getOperandStack().getRefFromTop(resolvedMethod.getArgSlotCount());
+        Objectz ref = frame.getOperandStack().getRefFromTop(resolvedMethod.getArgSlotCount() - 1);
         if (ref == null) {
             throw new NullPointerException(
                     String.format("null pointer, can not found a method %s in class %s", resolvedMethod.getName(), resolvedClass.getName()));
