@@ -40,4 +40,8 @@ public class Stack {
         }
         return this.list.peekLast();
     }
+
+    public boolean isEmpty() {
+        return this.size == 0;
+    }
 }

@@ -13,12 +13,12 @@ import me.ygy.jjvm.rtda.heap.Method;
  */
 public class Interpreter {
 
-    public static void interpret(Method method) {
+    public static void interpret(Method method, boolean logInst) {
         me.ygy.jjvm.rtda.Thread thread = new me.ygy.jjvm.rtda.Thread();
         Frame frame = thread.newFrame(method);
         thread.pushFrame(frame);
         try {
-            loop(thread, method.getCode());
+            loop(thread, logInst);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(String.format("LocalVars:%s\n", frame.getLocalVars().toString()));
@@ -26,21 +26,34 @@ public class Interpreter {
         }
     }
 
-    public static void loop(me.ygy.jjvm.rtda.Thread thread, byte[] bytecode) {
-        Frame frame = thread.popFrame();
+    public static void loop(me.ygy.jjvm.rtda.Thread thread, boolean logInst) {
         BytecodeReader reader = new BytecodeReader();
         while (true) {
+            Frame frame = thread.currentFrame();
             int pc = frame.getNextPc();
             thread.setPc(pc);
-            reader.reset(bytecode, pc);
+            reader.reset(frame.getMethod().getCode(), pc);
             int opcode = reader.readUint8();
             Instruction instruction = Instruction.newInstruction(opcode);
             instruction.fetchOperands(reader);
             frame.setNextPc(reader.getPc());
+            if (logInst) {
 
+            }
             //execute
             System.out.println(String.format("pc:%2d inst %s", pc, instruction.getClass().toString()));
             instruction.execute(frame);
+            if (thread.isStackEmpty()) {
+                break;
+            }
         }
+    }
+
+    private static void logInstruction(Frame frame, Instruction inst) {
+        Method method = frame.getMethod();
+        String className = method.getClazz().getName();
+        String methodName = method.getName();
+        int pc = frame.getThread().getPc();
+        System.out.println(String.format("%s.%s #%2d %s %s", className, methodName, pc, inst.getClass().toString(), inst.toString()));
     }
 }
