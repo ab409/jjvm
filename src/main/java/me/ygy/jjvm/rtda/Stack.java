@@ -38,7 +38,9 @@ public class Stack {
         if (this.size == 0) {
             throw new EmptyStackException();
         }
-        return this.list.peekLast();
+        Frame item = this.list.pop();
+        this.list.push(item);
+        return item;
     }
 
     public boolean isEmpty() {
