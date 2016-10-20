@@ -37,6 +37,7 @@ public class InvokeInterface implements Instruction {
             }
             Objectz ref = frame.getOperandStack().getRefFromTop(method.getArgSlotCount() - 1);
             if (ref == null) {
+                // TODO: 2016/10/20  
                 throw new NullPointerException("");
             }
             if (!ref.getClazz().isImplements(methodRef.resolvedClass())) {

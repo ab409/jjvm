@@ -47,12 +47,12 @@ public class ConstantPool {
             } else if (info instanceof ConstantFieldrefInfo) {
                 // newConstantFieldref
                 this.constants[i] = new FieldRef(this, (ConstantFieldrefInfo) info);
-            } else if (info instanceof ConstantMemberrefInfo) {
-                // newConstantMethodref
-                this.constants[i] = new MethodRef(this, (ConstantMemberrefInfo) info);
             } else if (info instanceof ConstantInterfaceMethodrefInfo) {
                 // newConstantInterfaceMethodref
                 this.constants[i] = new InterfaceMethodRef(this, (ConstantInterfaceMethodrefInfo) info);
+            } else if (info instanceof ConstantMemberrefInfo) {
+                // newConstantMethodref
+                this.constants[i] = new MethodRef(this, (ConstantMemberrefInfo) info);
             } else if (info instanceof ConstantInvokeDynamicInfo) {
                 // todo newConstantInvokeDynamic
             } else if (info instanceof ConstantMethodHandleInfo) {

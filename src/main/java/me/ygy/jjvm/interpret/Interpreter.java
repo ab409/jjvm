@@ -41,7 +41,7 @@ public class Interpreter {
                 logInstruction(frame, instruction);
             }
             //execute
-            System.out.println(String.format("pc:%2d inst %s", pc, instruction.getClass().toString()));
+            System.out.println(String.format("frame %s pc:%2d inst %s", frame, pc, instruction.getClass().toString()));
             instruction.execute(frame);
             if (thread.isStackEmpty()) {
                 break;

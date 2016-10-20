@@ -7,7 +7,6 @@ public class InvokeDemo implements Runnable {
 
     @Override
     public void run() {
-
     }
 
     public static void main(String[] args) {
@@ -15,19 +14,17 @@ public class InvokeDemo implements Runnable {
     }
 
     public void test() {
-        InvokeDemo.staticMethod();
-        InvokeDemo demo = new InvokeDemo();
-        demo.instanceMethod();
-        super.equals(null);
-        this.run();
-        demo.run();
+        InvokeDemo.staticMethod(); //invoke static
+        InvokeDemo demo = new InvokeDemo(); //invoke special
+        demo.instanceMethod(); //invoke virtual
+        super.equals(null); //invoke special
+        this.run(); //invoke virtual
+        ((Runnable)demo).run(); //invoke interface
     }
 
     public static void staticMethod() {
-
     }
 
     public void instanceMethod() {
-
     }
 }
