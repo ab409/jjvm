@@ -91,32 +91,32 @@ public class Objectz {
 
     public Objectz(Clazz clazz, byte[] data) {
         this.clazz = clazz;
-        this.data = data;;
+        this.data = data;
     }
     public Objectz(Clazz clazz, short[] data) {
         this.clazz = clazz;
-        this.data = data;;
+        this.data = data;
     }
     public Objectz(Clazz clazz, int[] data) {
         this.clazz = clazz;
-        this.data = data;;
+        this.data = data;
     }
     public Objectz(Clazz clazz, long[] data) {
         this.clazz = clazz;
-        this.data = data;;
+        this.data = data;
     }
 
     public Objectz(Clazz clazz, char[] data) {
         this.clazz = clazz;
-        this.data = data;;
+        this.data = data;
     }
     public Objectz(Clazz clazz, float[] data) {
         this.clazz = clazz;
-        this.data = data;;
+        this.data = data;
     }
     public Objectz(Clazz clazz, double[] data) {
         this.clazz = clazz;
-        this.data = data;;
+        this.data = data;
     }
     public Objectz(Clazz clazz, Object[] data) {
         this.clazz = clazz;
