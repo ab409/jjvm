@@ -91,6 +91,8 @@ public class Clazz {
         this.staticVars = staticVars;
     }
 
+    public Clazz() {}
+
     public Clazz(ClassFile classFile) {
         this.accesssFlags = classFile.getAccessFlags();
         this.name = classFile.className();
@@ -222,7 +224,7 @@ public class Clazz {
     }
 
     public static Objectz newObject(Clazz clazz) {
-        Objectz obj = new Objectz();
+        Objectz obj = new Objectz(clazz);
         obj.setClazz(clazz);
         obj.setFields(new LocalVars(clazz.instanceSlotCount));
         return obj;
@@ -299,6 +301,28 @@ public class Clazz {
 
     public Method getClinitMethod() {
         return this.getStaticMethod("<clinit>", "()V");
+    }
+
+    public Objectz newArray(int count) {
+        if (!this.isArray()) {
+            throw new IllegalArgumentException("not array class:"+this.getName());
+        }
+        switch (this.name) {
+            case "[Z": return new Objectz(this, new byte[count]);
+            case "[B": return new Objectz(this, new byte[count]);
+            case "[C": return new Objectz(this, new char[count]);
+            case "[S": return new Objectz(this, new short[count]);
+            case "[I": return new Objectz(this, new int[count]);
+            case "[J": return new Objectz(this, new long[count]);
+            case "[F": return new Objectz(this, new float[count]);
+            case "[D": return new Objectz(this, new double[count]);
+            default:
+                return new Objectz(this, new Object[count]);
+        }
+    }
+
+    private boolean isArray() {
+        return this.name.charAt(0) == '[';
     }
 
     @Override

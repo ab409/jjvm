@@ -7,10 +7,7 @@ import me.ygy.jjvm.classpath.Classpath;
 import me.ygy.jjvm.rtda.LocalVars;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by guangyuanyu on 2016/10/18.
@@ -38,7 +35,23 @@ public class ClassLoader {
         if (this.classMap.containsKey(name)) {
             return this.classMap.get(name);
         }
+        if (name.charAt(0) == '[') {
+            return this.loadArrayClass(name);
+        }
         return this.loadNonArrayClass(name);
+    }
+
+    private Clazz loadArrayClass(String name) throws IOException {
+        Clazz clazz = new Clazz();
+        // TODO: 2016/10/21 accessFlag
+        clazz.setAccesssFlags(AccessFlag.ACC_PUBLIC);
+        clazz.setName(name);
+        clazz.setClassLoader(this);
+        clazz.setInitStarted(true);
+        clazz.setSuperClass(this.loadClass("java/lang/Object"));
+        clazz.setInterfaces(Arrays.asList(this.loadClass("java/lang/Cloneable"), this.loadClass("java/io/Serializable")));
+        this.classMap.put(name, clazz);
+        return clazz;
     }
 
     private Clazz loadNonArrayClass(String name) throws IOException {
