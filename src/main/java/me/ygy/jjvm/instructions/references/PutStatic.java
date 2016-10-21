@@ -26,13 +26,18 @@ public class PutStatic extends Index16Instruction {
             e.printStackTrace();
         }
         Clazz clazz = field.getClazz();
-
+        if (!clazz.isInitStarted()) {
+            // TODO: 2016/10/20 init class
+            frame.revertNextPc();
+            Clazz.initClass(frame.getThread(), clazz);
+            return;
+        }
         if (!field.isStatic()) {
             throw new IncompatibleClassChangeError(
                     String.format("%s' field %s is not static", field.getClazz().getName(), field.getName()));
         }
         if (field.isFinal()) {
-            if (!currentClazz.equals(clazz) || "<clinit>".equals(currentMethod.getName())) {
+            if (!currentClazz.equals(clazz) || !"<clinit>".equals(currentMethod.getName())) {
                 throw new IllegalAccessError(
                         String.format("%s' field %s is not accessible", field.getClazz().getName(), field.getName()));
             }

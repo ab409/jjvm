@@ -1,7 +1,9 @@
 package me.ygy.jjvm.rtda.heap;
 
 import me.ygy.jjvm.classfile.ClassFile;
+import me.ygy.jjvm.rtda.Frame;
 import me.ygy.jjvm.rtda.LocalVars;
+import me.ygy.jjvm.rtda.Thread;
 
 import java.util.List;
 
@@ -26,6 +28,20 @@ public class Clazz {
     private int staticSlotCount;
     //
     private LocalVars staticVars;
+
+    private boolean initStarted;
+
+    public void startInit() {
+        this.setInitStarted(true);
+    }
+
+    public boolean isInitStarted() {
+        return initStarted;
+    }
+
+    public void setInitStarted(boolean initStarted) {
+        this.initStarted = initStarted;
+    }
 
     public void setAccesssFlags(int accesssFlags) {
         this.accesssFlags = accesssFlags;
@@ -255,6 +271,34 @@ public class Clazz {
             }
         }
         return null;
+    }
+
+    public static void initClass(Thread thread, Clazz clazz) {
+        clazz.startInit();
+        // TODO: 2016/10/20
+        scheduleClinit(thread, clazz);
+        initSuperClass(thread, clazz);
+    }
+
+    private static void scheduleClinit(Thread thread, Clazz clazz) {
+        Method clinitMethod = clazz.getClinitMethod();
+        if (clinitMethod != null) {
+            Frame newFrame = thread.newFrame(clinitMethod);
+            thread.pushFrame(newFrame);
+        }
+    }
+
+    private static void initSuperClass(Thread thread, Clazz clazz) {
+        if (!clazz.isInterface()) {
+            Clazz superClass = clazz.getSuperClass();
+            if (superClass != null && !superClass.initStarted) {
+                initClass(thread, superClass);
+            }
+        }
+    }
+
+    public Method getClinitMethod() {
+        return this.getStaticMethod("<clinit>", "()V");
     }
 
     @Override

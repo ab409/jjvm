@@ -27,6 +27,12 @@ public class GetStatic extends Index16Instruction {
             e.printStackTrace();
         }
         Clazz clazz = field.getClazz();
+        if (!clazz.isInitStarted()) {
+            // TODO: 2016/10/20 init class
+            frame.revertNextPc();
+            Clazz.initClass(frame.getThread(), clazz);
+            return;
+        }
         if (!field.isStatic()) {
             throw new IncompatibleClassChangeError(
                     String.format("%s' field %s is not static", field.getClazz().getName(), field.getName()));

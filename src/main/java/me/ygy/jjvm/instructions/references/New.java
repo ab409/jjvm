@@ -2,6 +2,7 @@ package me.ygy.jjvm.instructions.references;
 
 import me.ygy.jjvm.instructions.base.Index16Instruction;
 import me.ygy.jjvm.rtda.Frame;
+import me.ygy.jjvm.rtda.Thread;
 import me.ygy.jjvm.rtda.heap.ClassRef;
 import me.ygy.jjvm.rtda.heap.Clazz;
 import me.ygy.jjvm.rtda.heap.ConstantPool;
@@ -23,6 +24,12 @@ public class New extends Index16Instruction {
             clazz = ref.resolvedClass();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        if (!clazz.isInitStarted()) {
+            // TODO: 2016/10/20 init class
+            frame.revertNextPc();
+            Clazz.initClass(frame.getThread(), clazz);
+            return;
         }
         if (clazz.isInterface() || clazz.isAbstract()) {
             throw new InstantiationError(String.format("%s is interface or abstract, so it can not be instanced", clazz.getName()));

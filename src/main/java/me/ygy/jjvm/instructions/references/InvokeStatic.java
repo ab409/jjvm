@@ -3,6 +3,7 @@ package me.ygy.jjvm.instructions.references;
 import me.ygy.jjvm.instructions.base.Index16Instruction;
 import me.ygy.jjvm.instructions.base.InvokeMethod;
 import me.ygy.jjvm.rtda.Frame;
+import me.ygy.jjvm.rtda.heap.Clazz;
 import me.ygy.jjvm.rtda.heap.ConstantPool;
 import me.ygy.jjvm.rtda.heap.Method;
 import me.ygy.jjvm.rtda.heap.MethodRef;
@@ -23,6 +24,13 @@ public class InvokeStatic extends Index16Instruction {
             method = methodRef.resolvedMethod();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        Clazz clazz = method.getClazz();
+        if (!clazz.isInitStarted()) {
+            // TODO: 2016/10/20 init class
+            frame.revertNextPc();
+            Clazz.initClass(frame.getThread(), clazz);
+            return;
         }
         if (!method.isStatic()) {
             throw new IncompatibleClassChangeError("method should be static");

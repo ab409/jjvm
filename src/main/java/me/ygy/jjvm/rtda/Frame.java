@@ -45,6 +45,10 @@ public class Frame {
         this.nextPc = 0;
     }
 
+    public void revertNextPc() {
+        this.nextPc = this.thread.getPc();
+    }
+
     public void setNextPc(int nextPc) {
         this.nextPc = nextPc;
     }
