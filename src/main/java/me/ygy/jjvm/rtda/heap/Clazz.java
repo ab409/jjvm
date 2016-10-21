@@ -5,12 +5,31 @@ import me.ygy.jjvm.rtda.Frame;
 import me.ygy.jjvm.rtda.LocalVars;
 import me.ygy.jjvm.rtda.Thread;
 
+import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by guangyuanyu on 2016/10/17.
  */
 public class Clazz {
+
+    private static final Map<String, String> primitiveTypes = Collections.unmodifiableMap(new HashMap<String, String>(){
+        {
+            put("void",     "V");
+            put("boolean",  "Z");
+            put("byte",     "B");
+            put("short",    "S");
+            put("int",      "I");
+            put("long",     "J");
+            put("char",     "C");
+            put("float",    "F");
+            put("double",   "D");
+        }
+    });
+
     private int accesssFlags;
     private String name;
     private String superClassName;
@@ -323,6 +342,25 @@ public class Clazz {
 
     private boolean isArray() {
         return this.name.charAt(0) == '[';
+    }
+
+    public Clazz arrayClass() throws IOException {
+        String arrayClassName = getArrayClassName(this.name);
+        return this.classLoader.loadClass(arrayClassName);
+    }
+
+    private static String getArrayClassName(String className) {
+        return "["+toDescriptor(className);
+    }
+
+    private static String toDescriptor(String className) {
+        if (className.charAt(0) == '[') {
+            return className;
+        }
+        if (primitiveTypes.containsKey(className)) {
+            return primitiveTypes.get(className);
+        }
+        return "L"+className+";";
     }
 
     @Override
