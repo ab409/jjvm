@@ -13,8 +13,7 @@ public class ClinitTest {
     public static final char C = 'x';
     public static final float F = 3.14f;
     public static final double D = 2.71828;
-    // TODO: 2016/10/21 ldc instruction ldc string is not implemented yet
-//    public static final String STR = "abc";
+    public static final String STR = "abc";
     public static boolean z = true;
     public static byte b = 1;
     public static short s = 2;
@@ -23,11 +22,11 @@ public class ClinitTest {
     public static char c = 'x';
     public static float f = 3.14f;
     public static double d = 2.71828;
-    // TODO: 2016/10/21 ldc instruction ldc string is not implemented yet
-//    public static String str = "abc";
+    public static String str = "abc";
 
     public static void main(String[] args) {
         System.out.println(ClinitTest.I);
         System.out.println(ClinitTest.i);
+        System.out.println(ClinitTest.str);
     }
 }
