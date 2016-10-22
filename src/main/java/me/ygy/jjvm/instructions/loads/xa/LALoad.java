@@ -18,6 +18,6 @@ public class LALoad extends NoOperandsInstruction {
         AALoad.checkNotNull(arrRef);
         long[] longs = arrRef.longs();
         AALoad.checkIndex(longs.length, index);
-        stack.pushFloat(longs[index]);
+        stack.pushLong(longs[index]);
     }
 }
