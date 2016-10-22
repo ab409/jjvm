@@ -80,7 +80,7 @@ public class Main {
         Clazz mainClass = classLoader.loadClass(className);
         Method mainMethod = mainClass.getMainMethod();
         if (mainMethod != null) {
-            Interpreter.interpret(mainMethod, cmd.isVerboseInstFlag());
+            Interpreter.interpret(mainMethod, cmd.isVerboseInstFlag(), cmd.getArgs());
         } else {
             System.out.println(String.format("main method not fount in class %s\n", className));
         }

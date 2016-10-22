@@ -185,8 +185,10 @@ public class ClassLoader {
                     staticVars.setDouble(slotId, Double.valueOf(constant.toString()));
                     break;
                 case "Ljava/lang.String;":
-                    //todo string implement
-                    throw new IllegalArgumentException("todo string");
+                    //string implement
+                    String s = (String) constantPool.getConstant(constValueIndex);
+                    Objectz jStr = InternedStrings.jString(clazz.getClassLoader(), s);
+                    staticVars.setRef(slotId, jStr);
             }
         }
     }

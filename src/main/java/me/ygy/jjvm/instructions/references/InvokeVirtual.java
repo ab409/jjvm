@@ -79,6 +79,10 @@ public class InvokeVirtual extends Index16Instruction {
             case "(D)V":
                 System.out.println(""+stack.popDouble());
                 break;
+            case "(Ljava/lang/String;)V":
+                Objectz jStr = stack.popRef();
+                System.out.println(InternedStrings.string(jStr));
+                break;
             default:
                 throw new IllegalArgumentException("pringln: "+descriptor);
         }

@@ -123,4 +123,15 @@ public class Objectz {
         this.data = data;
     }
 
+    public void setRefVar(String name, String descriptor, Objectz ref) {
+        Field field = this.clazz.getField(name, descriptor, false);
+        LocalVars slots = (LocalVars) this.data;
+        slots.setRef(field.getSlotId(), ref);
+    }
+
+    public Objectz getRefVar(String name, String descriptor) {
+        Field field = this.clazz.getField(name, descriptor, false);
+        LocalVars slots = (LocalVars) this.data;
+        return slots.getRef(field.getSlotId());
+    }
 }

@@ -1,22 +1,25 @@
 package me.ygy.jjvm.interpret;
 
-import me.ygy.jjvm.classfile.MemberInfo;
-import me.ygy.jjvm.classfile.attribute.impl.CodeAttribute;
 import me.ygy.jjvm.instructions.BytecodeReader;
 import me.ygy.jjvm.instructions.Instruction;
 import me.ygy.jjvm.rtda.Frame;
-import me.ygy.jjvm.rtda.Thread;
-import me.ygy.jjvm.rtda.heap.Method;
+import me.ygy.jjvm.rtda.heap.*;
+import me.ygy.jjvm.rtda.heap.ClassLoader;
+
+import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by guangyuanyu on 2016/10/17.
  */
 public class Interpreter {
 
-    public static void interpret(Method method, boolean logInst) {
+    public static void interpret(Method method, boolean logInst, List<String> args) {
         me.ygy.jjvm.rtda.Thread thread = new me.ygy.jjvm.rtda.Thread();
         Frame frame = thread.newFrame(method);
         thread.pushFrame(frame);
+        Objectz jArgs = createArgsArray(method.getClazz().getClassLoader(), args);
+        frame.getLocalVars().setRef(0, jArgs);
         try {
             loop(thread, logInst);
         } catch (Exception e) {
@@ -24,6 +27,21 @@ public class Interpreter {
             System.out.println(String.format("LocalVars:%s\n", frame.getLocalVars().toString()));
             System.out.println(String.format("OperandStack:%s\n", frame.getOperandStack().toString()));
         }
+    }
+
+    private static Objectz createArgsArray(ClassLoader loader, List<String> args) {
+        Objectz argsArr = null;
+        try {
+            Clazz stringClass = loader.loadClass("java/lang/String");
+            argsArr = stringClass.arrayClass().newArray(args.size());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Objectz[] jArgs = argsArr.refs();
+        for (int i = 0; i < args.size(); i++) {
+            jArgs[i] = InternedStrings.jString(loader, args.get(i));
+        }
+        return argsArr;
     }
 
     public static void loop(me.ygy.jjvm.rtda.Thread thread, boolean logInst) {

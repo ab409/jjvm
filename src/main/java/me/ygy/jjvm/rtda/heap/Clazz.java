@@ -363,7 +363,7 @@ public class Clazz {
             case "[F": return new Objectz(this, new float[count]);
             case "[D": return new Objectz(this, new double[count]);
             default:
-                return new Objectz(this, new Object[count]);
+                return new Objectz(this, new Objectz[count]);
         }
     }
 
@@ -435,6 +435,18 @@ public class Clazz {
         return this.name.equals("java/io/Serializable");
     }
 
+    public Field getField(String name, String descriptor, boolean isStatic) {
+        for (Clazz c = this; c != null; c = c.superClass) {
+            for (Field field : c.getFields()) {
+                if (field.isStatic() == isStatic &&
+                        field.getName().equals(name) &&
+                        field.getDescriptor().equals(descriptor)) {
+                    return field;
+                }
+            }
+        }
+        return null;
+    }
     @Override
     public String toString() {
         return "{Class name: "+this.name+"}";
