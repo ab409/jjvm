@@ -31,7 +31,6 @@ public class InternedStrings {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        // TODO: 2016/10/22
         jStr.setRefVar("value", "[C", jChars);
         map.put(str, jStr);
         return jStr;
