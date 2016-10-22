@@ -14,7 +14,7 @@ public class InvokeMethod {
         Thread thread = frame.getThread();
         Frame newFrame = thread.newFrame(method);
         thread.pushFrame(newFrame);
-        //todo
+        //
         int argSlotCount = method.getArgSlotCount();
         if (argSlotCount > 0) {
             for (int i = argSlotCount - 1; i >= 0; i--) {
@@ -22,7 +22,7 @@ public class InvokeMethod {
                 newFrame.getLocalVars().setSlot(i, slot);
             }
         }
-
+        //hack
         if (method.isNative()) {
             if (method.getName().equals("registerNatives")) {
                 thread.popFrame();

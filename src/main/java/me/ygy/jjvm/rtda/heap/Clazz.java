@@ -253,10 +253,38 @@ public class Clazz {
         if (this.equals(other)) {
             return true;
         }
-        if (!this.isInterface()) {
-            return other.isSubClassOf(this);
+        if (!other.isArray()) {
+            if (!other.isInterface()) {
+                if (!this.isInterface()) {
+                    return other.isSubClassOf(this);
+                } else {
+                    return other.isImplements(this);
+                }
+            } else {
+                if (!this.isInterface()) {
+                    return this.isJlObject();
+                } else {
+                    return this.isSuperInterfaceOf(other);
+                }
+            }
         } else {
-            return other.isImplements(this);
+            if (!this.isArray()) {
+                if (!this.isInterface()) {
+                    return this.isJlObject();
+                } else {
+                    return this.isJlCloneable() || this.isJioSerializable();
+                }
+            } else {
+                Clazz otherCompo = null;
+                Clazz thisCompo = null;
+                try {
+                    otherCompo = other.componentClass();
+                    thisCompo = this.componentClass();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return otherCompo.equals(thisCompo) || thisCompo.isAssignableFrom(otherCompo);
+            }
         }
     }
 
@@ -296,7 +324,6 @@ public class Clazz {
 
     public static void initClass(Thread thread, Clazz clazz) {
         clazz.startInit();
-        // TODO: 2016/10/20
         scheduleClinit(thread, clazz);
         initSuperClass(thread, clazz);
     }
@@ -361,6 +388,51 @@ public class Clazz {
             return primitiveTypes.get(className);
         }
         return "L"+className+";";
+    }
+
+    public Clazz componentClass() throws IOException {
+        String componentClassName = getComponentClassName(this.name);
+        return this.classLoader.loadClass(componentClassName);
+    }
+
+    private static String getComponentClassName(String className) {
+        if (className.charAt(0) == '[') {
+            String comonentTypeDescriptor = className.substring(1);
+            return toClassName(comonentTypeDescriptor);
+        }
+        throw new IllegalArgumentException("array class is not valid ");
+    }
+
+    private static String toClassName(String descriptor) {
+        if (descriptor.charAt(0) == '[') {
+            return descriptor;
+        }
+        if (descriptor.charAt(0) == 'L') {
+            return descriptor.substring(1, descriptor.length() - 1);
+        }
+        for (String s : primitiveTypes.keySet()) {
+            String d = primitiveTypes.get(s);
+            if (d.equals(descriptor)) {
+                return s;
+            }
+        }
+        throw new IllegalArgumentException("invalid descriptor");
+    }
+
+    public boolean isSuperInterfaceOf(Clazz iface) {
+        return iface.isSubInterfaceOf(this);
+    }
+
+    private boolean isJlObject() {
+        return this.name.equals("java/lang/Object");
+    }
+
+    private boolean isJlCloneable() {
+        return this.name.equals("java/lang/Clonealbe");
+    }
+
+    private boolean isJioSerializable() {
+        return this.name.equals("java/io/Serializable");
     }
 
     @Override

@@ -80,7 +80,7 @@ public class JavaCmd {
         }
 
         if (commandLine.hasOption("verboseInstFlag")) {
-            cmd.setVerboseClassFlag(Boolean.valueOf(commandLine.getOptionValue("verboseInstFlag")));
+            cmd.setVerboseInstFlag(Boolean.valueOf(commandLine.getOptionValue("verboseInstFlag")));
         }
 
         List argList = commandLine.getArgList();

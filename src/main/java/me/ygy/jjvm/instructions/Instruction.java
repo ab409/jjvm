@@ -624,14 +624,14 @@ public interface Instruction {
 //                throw new IllegalArgumentException("NEW not implement");
                 return new New();
             case 0xbc:
-                //todo NEW_ARRAY
-                throw new IllegalArgumentException("NEW_ARRAY not implement");
+                //NEW_ARRAY
+                return new NewArray();
             case 0xbd:
-                //todo ANEW_ARRAY
-                throw new IllegalArgumentException("ANEW_ARRAY not implement");
+                //ANEW_ARRAY
+                return new ANewArray();
             case 0xbe:
-                //todo arraylength
-                throw new IllegalArgumentException("arraylength not implement");
+                //arraylength
+                return new ArrayLength();
             case 0xbf:
                 //todo athrow
                 throw new IllegalArgumentException("athrow not implement");
@@ -652,8 +652,8 @@ public interface Instruction {
             case 0xc4:
                 return new Wide();
             case 0xc5:
-                //todo MULTI_ANEW_ARRAY
-                throw new IllegalArgumentException("MULTI_ANEW_ARRAY not implement");
+                //MULTI_ANEW_ARRAY
+                return new MultiANewArray();
             case 0xc6:
                 return new IfNull();
             case 0xc7:

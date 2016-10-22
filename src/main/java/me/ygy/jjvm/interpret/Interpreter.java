@@ -38,11 +38,11 @@ public class Interpreter {
             instruction.fetchOperands(reader);
             frame.setNextPc(reader.getPc());
             if (logInst) {
-                logInstruction(frame, instruction);
+                //execute
+//                logInstruction(frame, instruction);
+                System.out.println(String.format("%s pc:%2d inst %s", frame.toString().substring(frame.toString().lastIndexOf(".")+1),
+                        pc, instruction.getClass().toString().substring(instruction.getClass().toString().lastIndexOf(".")+1)));
             }
-            //execute
-            System.out.println(String.format("%s pc:%2d inst %s", frame.toString().substring(frame.toString().lastIndexOf(".")+1),
-                    pc, instruction.getClass().toString().substring(instruction.getClass().toString().lastIndexOf(".")+1)));
             instruction.execute(frame);
             if (thread.isStackEmpty()) {
                 break;

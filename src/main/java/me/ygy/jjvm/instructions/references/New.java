@@ -26,7 +26,6 @@ public class New extends Index16Instruction {
             e.printStackTrace();
         }
         if (!clazz.isInitStarted()) {
-            // TODO: 2016/10/20 init class
             frame.revertNextPc();
             Clazz.initClass(frame.getThread(), clazz);
             return;

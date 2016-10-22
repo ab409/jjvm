@@ -9,6 +9,8 @@ import me.ygy.jjvm.rtda.heap.Clazz;
 import me.ygy.jjvm.rtda.heap.ConstantPool;
 import me.ygy.jjvm.rtda.heap.Objectz;
 
+import java.io.IOException;
+
 /**
  * Created by guangyuanyu on 2016/10/21.
  */
@@ -27,9 +29,17 @@ public class MultiANewArray implements Instruction {
     public void execute(Frame frame) {
         ConstantPool constantPool = frame.getMethod().getClazz().getConstantPool();
         ClassRef classRef = (ClassRef) constantPool.getConstant(this.index);
-        Clazz arrClass = classRef.resolvedClass();
-        OperandStack stack = frame.getOperandStack();
-
+        OperandStack stack = null;
+        Objectz arr = null;
+        try {
+            Clazz arrClass = classRef.resolvedClass();
+            stack = frame.getOperandStack();
+            int[] counts = popAndCheckCounts(stack, this.dimensions);
+            arr = newMultiDimensionalArray(counts, arrClass);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        stack.pushRef(arr);
     }
 
     private int[] popAndCheckCounts(OperandStack stack, int dimensions) {
@@ -45,7 +55,7 @@ public class MultiANewArray implements Instruction {
         return counts;
     }
 
-    private Objectz newMultiDimensionalArray(int[] counts, Clazz arrClass) {
+    private Objectz newMultiDimensionalArray(int[] counts, Clazz arrClass) throws IOException {
         int count = counts[0];
         Objectz array = arrClass.newArray(count);
         if (counts.length > 1) {
@@ -55,7 +65,7 @@ public class MultiANewArray implements Instruction {
                 for (int j = 0; j < nextCounts.length; j++) {
                     nextCounts[j] = counts[j+1];
                 }
-                refs[i] = newMultiDimensionalArray(nextCounts, );
+                refs[i] = newMultiDimensionalArray(nextCounts, arrClass.componentClass());
             }
         }
         return array;

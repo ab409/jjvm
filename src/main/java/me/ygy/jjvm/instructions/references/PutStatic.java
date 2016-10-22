@@ -27,7 +27,6 @@ public class PutStatic extends Index16Instruction {
         }
         Clazz clazz = field.getClazz();
         if (!clazz.isInitStarted()) {
-            // TODO: 2016/10/20 init class
             frame.revertNextPc();
             Clazz.initClass(frame.getThread(), clazz);
             return;
