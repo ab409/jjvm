@@ -18,6 +18,6 @@ public class SALoad extends NoOperandsInstruction {
         AALoad.checkNotNull(arrRef);
         short[] shorts = arrRef.shorts();
         AALoad.checkIndex(shorts.length, index);
-        stack.pushFloat(shorts[index]);
+        stack.pushInt(shorts[index]);
     }
 }

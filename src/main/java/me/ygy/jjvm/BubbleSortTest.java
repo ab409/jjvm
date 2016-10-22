@@ -12,7 +12,7 @@ public class BubbleSortTest {
         };
 
         //printArray(arr);
-//        bubbleSort(arr);
+        bubbleSort(arr);
         //System.out.println(123456789);
         printArray(arr);
     }

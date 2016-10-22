@@ -18,6 +18,6 @@ public class IALoad extends NoOperandsInstruction {
         AALoad.checkNotNull(arrRef);
         int[] ints = arrRef.ints();
         AALoad.checkIndex(ints.length, index);
-        stack.pushFloat(ints[index]);
+        stack.pushInt(ints[index]);
     }
 }
