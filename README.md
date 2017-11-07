@@ -1,6 +1,8 @@
 # jjvm
 implement basic jvm with java language
 
+## run me.ygy.jjvm.main/Main.java to see the result
+
 modules :
 - java command
 - classpath
