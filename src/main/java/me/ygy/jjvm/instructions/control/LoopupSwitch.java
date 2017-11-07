@@ -24,7 +24,7 @@ public class LoopupSwitch extends BranchInstruction{
     @Override
     public void execute(Frame frame) {
         int key = frame.getOperandStack().popInt();
-        for (int i = 0; i < this.npairs * 2; i++) {
+        for (int i = 0; i < this.npairs * 2; i+=2) {
             if (this.matchOffsets[i] == key) {
                 int offset = this.matchOffsets[i + 1];
                 super.branch(frame, offset);
