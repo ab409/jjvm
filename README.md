@@ -1,7 +1,11 @@
 # jjvm
 implement basic jvm with java language
 
-## run me.ygy.jjvm.main/Main.java to see the result
+maven package and run this cmd to see the result
+```java
+ java -cp ./target/jjvm.jar me.ygy.jjvm.main.Main -cp ./target/classes -verboseInstFlag false me.ygy.jjvm.App go foo bar
+```
+   
 
 modules :
 - java command
