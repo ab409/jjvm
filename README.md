@@ -3,6 +3,7 @@ implement basic jvm with java language
 
 maven package and run this cmd to see the result
 ```java
+ mvn package
  java -cp ./target/jjvm.jar me.ygy.jjvm.main.Main -cp ./target/classes -verboseInstFlag false me.ygy.jjvm.App go foo bar
 ```
    
